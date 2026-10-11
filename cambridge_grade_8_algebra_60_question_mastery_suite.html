@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Grade 8 Algebra: 60-Question Mastery Suite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX CDN for mathematical typesetting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .katex-display {
+            margin: 0.4em 0 !important;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        /* Custom scrollbar for question nav drawer */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-indigo-200">
+                        $x$
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-slate-900 text-base tracking-tight block leading-tight">Cambridge Grade 8 Algebra</span>
+                        <span class="text-xs text-indigo-600 font-medium">60-Question Assessment Suite</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <!-- Score Counter -->
+                    <div class="bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100 flex items-center space-x-2 shadow-sm">
+                        <i class="fa-solid fa-trophy text-amber-500 text-sm"></i>
+                        <span id="navScore" class="text-xs font-extrabold text-indigo-900">Score: 0 / 60</span>
+                    </div>
+                    <!-- Nav Toggle Button -->
+                    <button onclick="toggleNavDrawer()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl font-bold text-xs transition flex items-center space-x-1.5 border border-slate-200">
+                        <i class="fa-solid fa-th"></i>
+                        <span class="hidden sm:inline">Jump Question</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Slide-over Question Navigation Drawer -->
+    <div id="navDrawer" class="fixed inset-y-0 right-0 z-50 w-72 bg-white shadow-2xl border-l border-slate-200 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+        <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-compass text-indigo-600"></i>
+                <span class="font-bold text-slate-900 text-sm">Question Navigator</span>
+            </div>
+            <button onclick="toggleNavDrawer()" class="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="p-4 overflow-y-auto flex-grow">
+            <p class="text-xs text-slate-500 mb-3">Click any question number to jump directly to it:</p>
+            <div id="drawerGrid" class="grid grid-cols-5 gap-2">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+            <button onclick="resetQuizData()" class="text-xs font-bold text-rose-600 hover:text-rose-800 flex items-center space-x-1">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>Reset All Progress</span>
+            </button>
+            <span id="drawerAnsweredCount" class="text-xs font-semibold text-slate-500">0 / 60 answered</span>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 flex-grow w-full">
+
+        <!-- Header / Intro Banner -->
+        <div class="bg-gradient-to-br from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 space-y-4 max-w-2xl">
+                <div class="inline-flex items-center space-x-2 bg-indigo-500/30 border border-indigo-400/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-indigo-200">
+                    <i class="fa-solid fa-pen-ruler"></i>
+                    <span>Cambridge Lower Secondary 60-Question Mastery Suite</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+                    Algebraic Expressions & <span class="text-amber-400">Equations Challenge</span>
+                </h1>
+                <p class="text-indigo-200 text-sm sm:text-base leading-relaxed">
+                    Test your expertise across 60 rigorous questions covering like terms, bracket expansion, quadratic binomials, difference of squares, algebraic division, and multi-step linear equations. Your progress is auto-saved locally!
+                </p>
+
+                <!-- Progress Bar -->
+                <div class="space-y-2 pt-2">
+                    <div class="flex justify-between text-xs font-semibold text-indigo-200">
+                        <span id="progressText">Question 1 of 60</span>
+                        <span id="progressPercent">1.67% Completed</span>
+                    </div>
+                    <div class="w-full bg-indigo-950/60 rounded-full h-2.5 overflow-hidden p-0.5 border border-indigo-700/40">
+                        <div id="progressBar" class="bg-amber-400 h-full rounded-full transition-all duration-300" style="width: 1.67%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Card Area -->
+        <div id="quizCardContainer" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+            <!-- Dynamic Question injected here -->
+        </div>
+
+        <!-- Navigation Controls -->
+        <div id="quizControls" class="flex items-center justify-between pt-2">
+            <button id="prevBtn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-slate-300 font-bold text-sm text-slate-600 hover:bg-slate-100 transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center space-x-2">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Previous</span>
+            </button>
+            <button id="nextBtn" onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition shadow-md shadow-indigo-200 flex items-center space-x-2">
+                <span>Next Question</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Results Completion Box (Hidden Initially) -->
+        <div id="resultsBox" class="hidden bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-2xl">
+            <div class="w-20 h-20 bg-amber-400 text-slate-900 rounded-2xl flex items-center justify-center text-4xl font-black mx-auto shadow-xl rotate-3">
+                🏆
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-3xl font-extrabold tracking-tight">Quiz Completed Successfully!</h2>
+                <p id="resultSummaryText" class="text-indigo-200 text-base max-w-lg mx-auto leading-relaxed"></p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 pt-2">
+                <button onclick="restartQuiz()" class="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-sm transition shadow-lg flex items-center space-x-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Retake Quiz</span>
+                </button>
+                <button onclick="reviewAnswers()" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-sm transition flex items-center space-x-2">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Review All Answers</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 mt-16 text-center text-xs text-slate-500">
+        <p>Cambridge Lower Secondary Mathematics (Grade 8) • 60-Question Algebraic Expressions & Equations Suite</p>
+    </footer>
+
+    <script>
+        const questions = [
+            // --- TOPIC 1: Substitution & Terminology (Q1 - Q10) ---
+            {
+                id: 1,
+                category: "Substitution & Evaluation",
+                question: "Evaluate the algebraic expression $5x^2 - 3x + 7$ when $x = -2$.",
+                options: ["$33$", "$17$", "$23$", "$9$"],
+                correct: 0,
+                hint: "Remember $(-2)^2 = 4$. Substitute carefully and apply order of operations.",
+                explanation: "Substitute $x = -2$: $5(-2)^2 - 3(-2) + 7 = 5(4) + 6 + 7 = 20 + 6 + 7 = 33$."
+            },
+            {
+                id: 2,
+                category: "Terminology",
+                question: "In the algebraic term $-7a^3b^2$, what is the coefficient?",
+                options: ["$3$", "$-7$", "$2$", "$7$"],
+                correct: 1,
+                hint: "The coefficient is the numerical factor multiplying the variables.",
+                explanation: "The numerical multiplier attached to the variables is $-7$."
+            },
+            {
+                id: 3,
+                category: "Substitution & Evaluation",
+                question: "Calculate the value of $\\frac{4a^2 - b}{2}$ when $a = 3$ and $b = -8$.",
+                options: ["$20$", "$14$", "$22$", "$16$"],
+                correct: 2,
+                hint: "Evaluate numerator first: $4(3)^2 - (-8)$.",
+                explanation: "$4(9) - (-8) = 36 + 8 = 44$. Then $\\frac{44}{2} = 22$."
+            },
+            {
+                id: 4,
+                category: "Like & Unlike Terms",
+                question: "Which of the following terms is a 'like term' to $5x^2y$?",
+                options: ["$5xy^2$", "$-3x^2y$", "$2x^3y$", "$x^2y^2$"],
+                correct: 1,
+                hint: "Like terms must have identical variables with the exact same exponents.",
+                explanation: "$-3x^2y$ has the exact same variable parts and powers ($x^2$ and $y$)."
+            },
+            {
+                id: 5,
+                category: "Substitution & Evaluation",
+                question: "Evaluate $P = 2l + 2w$ when $l = 12.5$ cm and $w = 7.5$ cm.",
+                options: ["$30$ cm", "$45$ cm", "$40$ cm", "$50$ cm"],
+                correct: 2,
+                hint: "Substitute length and width into the perimeter formula.",
+                explanation: "$P = 2(12.5) + 2(7.5) = 25 + 15 = 40$ cm."
+            },
+            {
+                id: 6,
+                category: "Terminology",
+                question: "How many terms are in the algebraic expression $4x^3 - 5x^2 + 7x - 12$?",
+                options: ["$2$", "$3$", "$4$", "$5$"],
+                correct: 2,
+                hint: "Terms are separated by plus or minus signs.",
+                explanation: "The expression has 4 distinct terms: $4x^3$, $-5x^2$, $7x$, and $-12$."
+            },
+            {
+                id: 7,
+                category: "Substitution & Evaluation",
+                question: "Find the value of $x^3 - 2x^2 + x - 5$ when $x = 3$.",
+                options: ["$13$", "$7$", "$19$", "$10$"],
+                correct: 1,
+                hint: "Cube 3 first, then square 3, and compute step by step.",
+                explanation: "$(3)^3 - 2(3)^2 + 3 - 5 = 27 - 2(9) + 3 - 5 = 27 - 18 + 3 - 5 = 7$."
+            },
+            {
+                id: 8,
+                category: "Like & Unlike Terms",
+                question: "Identify the expression that cannot be simplified further.",
+                options: ["$3x + 5x$", "$7ab - 2ab$", "$4x^2 + 3x$", "$9y - 4y$"],
+                correct: 2,
+                hint: "Unlike terms cannot be added or subtracted into a single term.",
+                explanation: "$4x^2$ and $3x$ are unlike terms because their powers ($2$ vs $1$) are different."
+            },
+            {
+                id: 9,
+                category: "Substitution & Evaluation",
+                question: "Evaluate $\\sqrt{b^2 - 4ac}$ when $a = 2$, $b = -5$, and $c = -3$.",
+                options: ["$7$", "$5$", "$49$", "$11$"],
+                correct: 0,
+                hint: "Compute $(-5)^2$ and $-4(2)(-3)$ first.",
+                explanation: "$(-5)^2 - 4(2)(-3) = 25 - (-24) = 25 + 24 = 49$. Then $\\sqrt{49} = 7$."
+            },
+            {
+                id: 10,
+                category: "Terminology",
+                question: "What is the degree (highest power) of the polynomial $3x^4 - 5x^5 + 2x - 8$?",
+                options: ["$3$", "$4$", "$5$", "$1$"],
+                correct: 2,
+                hint: "Look for the highest exponent among all terms.",
+                explanation: "The highest exponent on the variable $x$ is $5$ (in the term $-5x^5$)."
+            },
+
+            // --- TOPIC 2: Like & Unlike Terms, Addition & Subtraction (Q11 - Q20) ---
+            {
+                id: 11,
+                category: "Like Terms",
+                question: "Simplify completely: $7a^2b - 3ab^2 + 4a^2b - 5ab^2 + 2ab$.",
+                options: ["$11a^2b - 8ab^2 + 2ab$", "$15a^4b^2 + 2ab$", "$3a^2b - 8ab^2$", "$11a^4b^2 + 2ab$"],
+                correct: 0,
+                hint: "Group terms with identical variable parts and exponents.",
+                explanation: "Combine like terms: $(7a^2b + 4a^2b) + (-3ab^2 - 5ab^2) + 2ab = 11a^2b - 8ab^2 + 2ab$."
+            },
+            {
+                id: 12,
+                category: "Addition & Subtraction",
+                question: "Simplify: $(8x + 5y - 3) - (3x - 2y + 4)$.",
+                options: ["$5x + 3y + 1$", "$5x + 7y - 7$", "$11x + 7y - 7$", "$5x - 7y - 7$"],
+                correct: 1,
+                hint: "Distribute the negative sign to every term in the second set of brackets.",
+                explanation: "$8x + 5y - 3 - 3x + 2y - 4 = (8x - 3x) + (5y + 2y) + (-3 - 4) = 5x + 7y - 7$."
+            },
+            {
+                id: 13,
+                category: "Like Terms",
+                question: "Simplify: $12p - 5q + 3p - 8q + 15$.",
+                options: ["$15p - 13q + 15$", "$9p - 13q$", "$15p + 3q + 15$", "$7p - 3q + 15$"],
+                correct: 0,
+                hint: "Collect $p$ terms and $q$ terms separately.",
+                explanation: "$(12p + 3p) + (-5q - 8q) + 15 = 15p - 13q + 15$."
+            },
+            {
+                id: 14,
+                category: "Addition & Subtraction",
+                question: "Find the sum of $(4x^2 - 3x + 5)$ and $(-2x^2 + 7x - 9)$.",
+                options: ["$6x^2 + 4x - 4$", "$2x^2 + 4x - 4$", "$2x^2 - 10x - 4$", "$2x^2 + 4x + 14$"],
+                correct: 1,
+                hint: "Add coefficients of corresponding powers of $x$.",
+                explanation: "$(4 - 2)x^2 + (-3 + 7)x + (5 - 9) = 2x^2 + 4x - 4$."
+            },
+            {
+                id: 15,
+                category: "Like Terms",
+                question: "Simplify: $3(x^2y + 2xy^2) - 2(2x^2y - xy^2)$.",
+                options: ["$-x^2y + 8xy^2$", "$7x^2y + 4xy^2$", "$-x^2y + 4xy^2$", "$x^2y + 8xy^2$"],
+                correct: 0,
+                hint: "Expand both brackets first, then group like terms.",
+                explanation: "$3x^2y + 6xy^2 - 4x^2y + 2xy^2 = (3 - 4)x^2y + (6 + 2)xy^2 = -x^2y + 8xy^2$."
+            },
+            {
+                id: 16,
+                category: "Addition & Subtraction",
+                question: "Subtract $(5a - 3b + 7)$ from $(2a + 4b - 3)$.",
+                options: ["$3a - 7b + 10$", "$-3a + 7b - 10$", "$7a + b + 4$", "$-3a - b - 10$"],
+                correct: 1,
+                hint: "Write as $(2a + 4b - 3) - (5a - 3b + 7)$.",
+                explanation: "$2a + 4b - 3 - 5a + 3b - 7 = (2 - 5)a + (4 + 3)b + (-3 - 7) = -3a + 7b - 10$."
+            },
+            {
+                id: 17,
+                category: "Like Terms",
+                question: "Simplify: $\\frac{1}{2}x + \\frac{1}{3}x - \\frac{1}{6}x$.",
+                options: ["$\\frac{2}{3}x$", "$x$", "$\\frac{1}{2}x$", "$\\frac{5}{6}x$"],
+                correct: 0,
+                hint: "Find a common denominator for fractions (which is 6).",
+                explanation: "$\\frac{3}{6}x + \\frac{2}{6}x - \\frac{1}{6}x = \\frac{4}{6}x = \\frac{2}{3}x$."
+            },
+            {
+                id: 18,
+                category: "Addition & Subtraction",
+                question: "Simplify: $m - (2m - (3m - 4))$.",
+                options: ["$2m - 4$", "$-2m + 4$", "$4m - 4$", "$2m + 4$"],
+                correct: 0,
+                hint: "Work from the innermost parentheses outwards.",
+                explanation: "$m - (2m - 3m + 4) = m - (-m + 4) = m + m - 4 = 2m - 4$."
+            },
+            {
+                id: 19,
+                category: "Like Terms",
+                question: "Simplify: $9xy - 4yx + 2x^2y - 5xy^2 + 3xy$.",
+                options: ["$8xy + 2x^2y - 5xy^2$", "$5xy + 2x^2y - 5xy^2$", "$8xy - 5xy^2$", "$16xy - 5xy^2$"],
+                correct: 0,
+                hint: "Note that $yx$ is the same as $xy$.",
+                explanation: "Combine $xy$ terms: $9xy - 4xy + 3xy = 8xy$. Other terms remain: $8xy + 2x^2y - 5xy^2$."
+            },
+            {
+                id: 20,
+                category: "Addition & Subtraction",
+                question: "What must be added to $3x - 5y + 2$ to get $7x + 2y - 4$?",
+                options: ["$4x + 7y - 6$", "$4x - 3y - 6$", "$10x + 7y - 2$", "$4x + 7y + 6$"],
+                correct: 0,
+                hint: "Subtract $(3x - 5y + 2)$ from $(7x + 2y - 4)$.",
+                explanation: "$(7x + 2y - 4) - (3x - 5y + 2) = (7 - 3)x + (2 - (-5))y + (-4 - 2) = 4x + 7y - 6$."
+            },
+
+            // --- TOPIC 3: Bracket Expansion & Single Distributive Law (Q21 - Q30) ---
+            {
+                id: 21,
+                category: "Bracket Expansion",
+                question: "Expand and simplify: $4(3x - 2) - 3(2x - 5)$.",
+                options: ["$6x + 7$", "$18x - 23$", "$6x - 23$", "$18x + 7$"],
+                correct: 0,
+                hint: "Carefully distribute both $4$ and $-3$.",
+                explanation: "$12x - 8 - 6x + 15 = (12 - 6)x + (-8 + 15) = 6x + 7$."
+            },
+            {
+                id: 22,
+                category: "Bracket Expansion",
+                question: "Expand: $-2x(3x^2 - 4x + 7)$.",
+                options: ["$-6x^3 + 8x^2 - 14x$", "$-6x^3 - 8x^2 + 14x$", "$6x^3 - 8x^2 + 14x$", "$-6x^3 + 8x^2 + 14x$"],
+                correct: 0,
+                hint: "Multiply $-2x$ into each term inside the bracket.",
+                explanation: "$-2x(3x^2) - 2x(-4x) - 2x(7) = -6x^3 + 8x^2 - 14x$."
+            },
+            {
+                id: 23,
+                category: "Bracket Expansion",
+                question: "Expand and simplify: $5(2x + 3) + 2(3x - 4) - 3(x + 5)$.",
+                options: ["$13x + 8$", "$13x - 8$", "$19x - 8$", "$13x + 22$"],
+                correct: 0,
+                hint: "Expand all three parts then combine like terms.",
+                explanation: "$10x + 15 + 6x - 8 - 3x - 15 = (10 + 6 - 3)x + (15 - 8 - 15) = 13x - 8$."
+            },
+            {
+                id: 24,
+                category: "Bracket Expansion",
+                question: "Which of the following is equivalent to $24x - 18$ factored fully?",
+                options: ["$3(8x - 6)$", "$6(4x - 3)$", "$2(12x - 9)$", "$12(2x - 1.5)$"],
+                correct: 1,
+                hint: "Find the Highest Common Factor (HCF) of 24 and 18.",
+                explanation: "The HCF of 24 and 18 is 6. Factoring gives $6(4x - 3)$."
+            },
+            {
+                id: 25,
+                category: "Bracket Expansion",
+                question: "Expand: $x^2(3x - 5) + 2x(x^2 - 4x)$.",
+                options: ["$5x^3 - 13x^2$", "$3x^3 - 5x^2 + 2x^3 - 8x^2$", "$5x^3 - 5x^2$", "$3x^3 - 13x^2$"],
+                correct: 0,
+                hint: "Expand $x^2(3x - 5)$ and $2x(x^2 - 4x)$ separately.",
+                explanation: "$3x^3 - 5x^2 + 2x^3 - 8x^2 = (3 + 2)x^3 + (-5 - 8)x^2 = 5x^3 - 13x^2$."
+            },
+            {
+                id: 26,
+                category: "Bracket Expansion",
+                question: "Factorize completely: $15a^2b - 10ab^2$.",
+                options: ["$5ab(3a - 2b)$", "$5a(3ab - 2b^2)$", "$5b(3a^2 - 2ab)$", "$ab(15a - 10b)$"],
+                correct: 0,
+                hint: "The HCF of 15 and 10 is 5, and both terms share $ab$.",
+                explanation: "$5ab$ is common to both terms: $15a^2b - 10ab^2 = 5ab(3a - 2b)$."
+            },
+            {
+                id: 27,
+                category: "Bracket Expansion",
+                question: "Expand and simplify: $3x(x - 2) - 2x(x + 4)$.",
+                options: ["$x^2 - 14x$", "$x^2 + 2x$", "$5x^2 - 14x$", "$x^2 - 2x$"],
+                correct: 0,
+                hint: "Distribute $3x$ and $-2x$, then combine $x^2$ and $x$ terms.",
+                explanation: "$3x^2 - 6x - 2x^2 - 8x = (3 - 2)x^2 + (-6 - 8)x = x^2 - 14x$."
+            },
+            {
+                id: 28,
+                category: "Bracket Expansion",
+                question: "Factorize completely: $4x^2y + 8xy^2 - 12xy$.",
+                options: ["$4xy(x + 2y - 3)$", "$4x(xy + 2y^2 - 3y)$", "$2xy(2x + 4y - 6)$", "$4xy(x + 2y)$"],
+                correct: 0,
+                hint: "Find the HCF of coefficients ($4, 8, 12$) and variables ($xy$).",
+                explanation: "HCF is $4xy$. Factoring out gives $4xy(x + 2y - 3)$."
+            },
+            {
+                id: 29,
+                category: "Bracket Expansion",
+                question: "Expand: $-3(4 - 5x) + 2(2x - 7)$.",
+                options: ["$19x - 26$", "$11x - 26$", "$19x + 2$", "$-11x - 26$"],
+                correct: 0,
+                hint: "Distribute $-3$ into $(4 - 5x)$ and $2$ into $(2x - 7)$.",
+                explanation: "$-12 + 15x + 4x - 14 = (15 + 4)x + (-12 - 14) = 19x - 26$."
+            },
+            {
+                id: 30,
+                category: "Bracket Expansion",
+                question: "What is the result when $7 - 2(3x - 4)$ is fully expanded and simplified?",
+                options: ["$-6x + 15$", "$6x - 1$", "$-6x + 11$", "$15 - 6x$"],
+                correct: 0,
+                hint: "Be careful: distribute $-2$ into $(3x - 4)$.",
+                explanation: "$7 - 6x + 8 = -6x + 15$."
+            },
+
+            // --- TOPIC 4: Binomial & Quadratic Expansion / FOIL (Q31 - Q40) ---
+            {
+                id: 31,
+                category: "Binomial Expansion",
+                question: "Expand the binomial product: $(2x + 3)(x - 4)$.",
+                options: ["$2x^2 - 11x - 12$", "$2x^2 - 5x - 12$", "$2x^2 + 5x - 12$", "$2x^2 - 8x - 12$"],
+                correct: 1,
+                hint: "Use FOIL (First, Outer, Inner, Last).",
+                explanation: "First: $2x^2$, Outer: $-8x$, Inner: $3x$, Last: $-12$. Combine: $2x^2 - 8x + 3x - 12 = 2x^2 - 5x - 12$."
+            },
+            {
+                id: 32,
+                category: "Difference of Squares",
+                question: "Expand and simplify: $(4x - 5)(4x + 5)$.",
+                options: ["$16x^2 - 40x - 25$", "$16x^2 + 25$", "$16x^2 - 25$", "$8x^2 - 25$"],
+                correct: 2,
+                hint: "This is a difference of two squares: $(a-b)(a+b) = a^2 - b^2$.",
+                explanation: "$(4x)^2 - (5)^2 = 16x^2 - 25$."
+            },
+            {
+                id: 33,
+                category: "Binomial Expansion",
+                question: "Expand $(x + 6)^2$.",
+                options: ["$x^2 + 36$", "$x^2 + 12x + 36$", "$x^2 + 6x + 36$", "$2x + 12$"],
+                correct: 1,
+                hint: "Remember $(a + b)^2 = a^2 + 2ab + b^2$.",
+                explanation: "$x^2 + 2(x)(6) + 6^2 = x^2 + 12x + 36$."
+            },
+            {
+                id: 34,
+                category: "Binomial Expansion",
+                question: "Expand: $(3x - 2)(2x + 5)$.",
+                options: ["$6x^2 + 11x - 10$", "$6x^2 + 19x - 10$", "$6x^2 - 11x - 10$", "$5x^2 + 3x - 10$"],
+                correct: 0,
+                hint: "Apply FOIL: First ($6x^2$), Outer ($15x$), Inner ($-4x$), Last ($-10$).",
+                explanation: "$6x^2 + 15x - 4x - 10 = 6x^2 + 11x - 10$."
+            },
+            {
+                id: 35,
+                category: "Binomial Expansion",
+                question: "Expand $(3x - 4)^2$.",
+                options: ["$9x^2 + 16$", "$9x^2 - 12x + 16$", "$9x^2 - 24x + 16$", "$9x^2 - 24x - 16$"],
+                correct: 2,
+                hint: "Use $(a - b)^2 = a^2 - 2ab + b^2$.",
+                explanation: "$(3x)^2 - 2(3x)(4) + (-4)^2 = 9x^2 - 24x + 16$."
+            },
+            {
+                id: 36,
+                category: "Difference of Squares",
+                question: "Expand: $(3a - 2b)(3a + 2b)$.",
+                options: ["$9a^2 - 4b^2$", "$9a^2 - 12ab - 4b^2$", "$9a^2 + 4b^2$", "$6a^2 - 4b^2$"],
+                correct: 0,
+                hint: "Difference of squares formula: $(3a)^2 - (2b)^2$.",
+                explanation: "$9a^2 - 4b^2$."
+            },
+            {
+                id: 37,
+                category: "Binomial Expansion",
+                question: "Expand: $(x - 5)(x - 7)$.",
+                options: ["$x^2 - 12x - 35$", "$x^2 + 12x + 35$", "$x^2 - 12x + 35$", "$x^2 - 35$"],
+                correct: 2,
+                hint: "Product of two negatives is positive for the constant term.",
+                explanation: "$x^2 - 7x - 5x + 35 = x^2 - 12x + 35$."
+            },
+            {
+                id: 38,
+                category: "Binomial Expansion",
+                question: "Find the coefficient of $x$ when $(2x + 5)(x - 3)$ is expanded.",
+                options: ["$-11$", "$1$", "$-1$", "$11$"],
+                correct: 2,
+                hint: "Sum the Outer product and Inner product.",
+                explanation: "Outer: $2x(-3) = -6x$. Inner: $5(x) = 5x$. Sum: $-6x + 5x = -x$, so the coefficient is $-1$."
+            },
+            {
+                id: 39,
+                category: "Binomial Expansion",
+                question: "Expand and simplify: $(x + 4)(x - 4) + 16$.",
+                options: ["$x^2 + 32$", "$x^2$", "$x^2 - 32$", "$x^2 + 8x$"],
+                correct: 1,
+                hint: "Notice $(x+4)(x-4) = x^2 - 16$.",
+                explanation: "$x^2 - 16 + 16 = x^2$."
+            },
+            {
+                id: 40,
+                category: "Binomial Expansion",
+                question: "Expand: $(5x + 2)(3x - 1)$.",
+                options: ["$15x^2 + x - 2$", "$15x^2 + 11x - 2$", "$15x^2 - x - 2$", "$8x^2 + x - 2$"],
+                correct: 0,
+                hint: "FOIL method: $15x^2 - 5x + 6x - 2$.",
+                explanation: "$15x^2 + x - 2$."
+            },
+
+            // --- TOPIC 5: Algebraic Division (Q41 - Q50) ---
+            {
+                id: 41,
+                category: "Algebraic Division",
+                question: "Simplify the algebraic fraction: $\\frac{24x^4 - 16x^3 + 8x^2}{4x^2}$.",
+                options: ["$6x^2 - 4x$", "$6x^2 - 4x + 1$", "$20x^2 - 12x + 4$", "$6x^2 - 4x + 2$"],
+                correct: 3,
+                hint: "Divide each term in the numerator by $4x^2$ separately.",
+                explanation: "$\\frac{24x^4}{4x^2} - \\frac{16x^3}{4x^2} + \\frac{8x^2}{4x^2} = 6x^2 - 4x + 2$."
+            },
+            {
+                id: 42,
+                category: "Algebraic Division",
+                question: "Simplify: $\\frac{18a^3b^2 - 12a^2b^4}{6ab^2}$.",
+                options: ["$3a^2 - 2ab^2$", "$3a^2 - 2b^2$", "$3a^2b - 2ab^2$", "$3a^3 - 2b^4$"],
+                correct: 1,
+                hint: "Divide coefficients and subtract exponents for both $a$ and $b$. Note $b^2 / b^2 = 1$.",
+                explanation: "$\\frac{18a^3b^2}{6ab^2} - \\frac{12a^2b^4}{6ab^2} = 3a^{3-1}b^{2-2} - 2a^{2-1}b^{4-2} = 3a^2 - 2b^2$."
+            },
+            {
+                id: 43,
+                category: "Algebraic Division",
+                question: "Simplify: $\\frac{-15x^5 + 25x^3 - 10x^2}{-5x^2}$.",
+                options: ["$3x^3 - 5x + 2$", "$-3x^3 + 5x - 2$", "$3x^3 + 5x - 2$", "$3x^3 - 5x - 2$"],
+                correct: 0,
+                hint: "Dividing by a negative flips all signs.",
+                explanation: "$\\frac{-15x^5}{-5x^2} + \\frac{25x^3}{-5x^2} + \\frac{-10x^2}{-5x^2} = 3x^3 - 5x + 2$."
+            },
+            {
+                id: 44,
+                category: "Algebraic Division",
+                question: "Simplify: $\\frac{42p^4q^3 - 28p^2q^4}{7p^2q^2}$.",
+                options: ["$6p^2q - 4q^2$", "$6p^2q - 4pq^2$", "$6p^2 - 4q^2$", "$6p^2q - 4q$"],
+                correct: 0,
+                hint: "Divide $42$ by $7$, subtract powers of $p$ ($4-2$) and $q$ ($3-2$).",
+                explanation: "$6p^2q - 4q^2$."
+            },
+            {
+                id: 45,
+                category: "Algebraic Division",
+                question: "Find the quotient when $12x^3 - 18x^2$ is divided by $6x^2$.",
+                options: ["$2x - 3$", "$2x^2 - 3x$", "$2x - 3x$", "$2x + 3$"],
+                correct: 0,
+                hint: "Split terms: $\\frac{12x^3}{6x^2} - \\frac{18x^2}{6x^2}$.",
+                explanation: "$2x - 3$."
+            },
+            {
+                id: 46,
+                category: "Algebraic Division",
+                question: "Simplify: $\\frac{8x^3y^2 + 12x^2y^3}{4xy}$.",
+                options: ["$2x^2y + 3xy^2$", "$2x^2y^2 + 3xy^2$", "$2x^3y + 3x^2y^2$", "$2x^2y + 3xy$"],
+                correct: 0,
+                hint: "Divide each term by $4xy$.",
+                explanation: "$\\frac{8x^3y^2}{4xy} + \\frac{12x^2y^3}{4xy} = 2x^2y + 3xy^2$."
+            },
+            {
+                id: 47,
+                category: "Algebraic Division",
+                question: "Simplify: $\\frac{32m^5 - 24m^3 + 16m^2}{-8m^2}$.",
+                options: ["$-4m^3 + 3m - 2$", "$-4m^3 - 3m + 2$", "$4m^3 - 3m + 2$", "$-4m^3 + 3m + 2$"],
+                correct: 0,
+                hint: "Divide each term by $-8m^2$.",
+                explanation: "$-4m^3 + 3m - 2$."
+            },
+            {
+                id: 48,
+                category: "Algebraic Division",
+                question: "What is $\\frac{50a^4b^3 - 30a^3b^4}{10a^3b^3}$?",
+                options: ["$5a - 3b$", "$5ab - 3b$", "$5a - 3ab$", "$5a^2 - 3b^2$"],
+                correct: 0,
+                hint: "$a^3/a^3 = 1$ and $b^3/b^3 = 1$.",
+                explanation: "$5a^{4-3}b^{3-3} - 3a^{3-3}b^{4-3} = 5a - 3b$."
+            },
+            {
+                id: 49,
+                category: "Algebraic Division",
+                question: "Simplify: $\\frac{9x^2y - 15xy^2}{3xy}$.",
+                options: ["$3x - 5y$", "$3x^2 - 5y^2$", "$3x - 5xy$", "$3y - 5x$"],
+                correct: 0,
+                hint: "Divide coefficients by 3 and subtract 1 from each variable's power.",
+                explanation: "$3x - 5y$."
+            },
+            {
+                id: 50,
+                category: "Algebraic Division",
+                question: "Simplify: $\\frac{-20x^6 + 16x^4 - 8x^2}{-4x^2}$.",
+                options: ["$5x^4 - 4x^2 + 2$", "$-5x^4 + 4x^2 - 2$", "$5x^4 - 4x^2 - 2$", "$5x^3 - 4x^2 + 2$"],
+                correct: 0,
+                hint: "Dividing negative by negative yields positive.",
+                explanation: "$5x^4 - 4x^2 + 2$."
+            },
+
+            // --- TOPIC 6: Linear Equations & Word Problems (Q51 - Q60) ---
+            {
+                id: 51,
+                category: "Linear Equations",
+                question: "Solve the linear equation for $x$: $5x - 9 = 26$.",
+                options: ["$x = 7$", "$x = 5$", "$x = 9$", "$x = 3.4$"],
+                correct: 0,
+                hint: "Add 9 to both sides first, then divide by 5.",
+                explanation: "Add 9: $5x = 35$. Divide by 5: $x = 7$."
+            },
+            {
+                id: 52,
+                category: "Equations with Brackets",
+                question: "Solve the equation: $3(2x - 4) = 2(3x + 1) - 14$.",
+                options: ["Infinitely many solutions (Identity)", "$x = 2$", "No solution", "$x = 0$"],
+                correct: 0,
+                hint: "Expand both sides and simplify.",
+                explanation: "$6x - 12 = 6x + 2 - 14 \\implies 6x - 12 = 6x - 12$. Since both sides are identical, it is an identity with infinitely many solutions."
+            },
+            {
+                id: 53,
+                category: "Unknowns on Both Sides",
+                question: "Solve for $x$: $7x - 5 = 3x + 15$.",
+                options: ["$x = 5$", "$x = 2.5$", "$x = 4$", "$x = 10$"],
+                correct: 0,
+                hint: "Subtract $3x$ from both sides, then isolate $x$.",
+                explanation: "Subtract $3x$: $4x - 5 = 15$. Add 5: $4x = 20$. Divide by 4: $x = 5$."
+            },
+            {
+                id: 54,
+                category: "Equation Word Problem",
+                question: "Consecutive integers sum to $63$. If the smaller integer is $x$, what equation represents this and what is $x$?",
+                options: ["$x + (x+1) = 63 \\implies x = 31$", "$x + (x+2) = 63 \\implies x = 30.5$", "$2x = 63 \\implies x = 31.5$", "$x + x = 63 \\implies x = 31.5$"],
+                correct: 0,
+                hint: "Consecutive integers differ by 1, so the next integer is $x + 1$.",
+                explanation: "Equation: $x + (x + 1) = 63 \\implies 2x + 1 = 63 \\implies 2x = 62 \\implies x = 31$."
+            },
+            {
+                id: 55,
+                category: "Geometry Equation",
+                question: "A rectangle has length $(3x + 4)$ cm and width $(x + 2)$ cm. If the perimeter is $52$ cm, find the value of $x$.",
+                options: ["$x = 5$", "$x = 4$", "$x = 6$", "$x = 7$"],
+                correct: 0,
+                hint: "Perimeter formula: $P = 2(\\text{Length} + \\text{Width})$. Set equal to 52.",
+                explanation: "$2((3x + 4) + (x + 2)) = 52 \\implies 2(4x + 6) = 52 \\implies 4x + 6 = 26 \\implies 4x = 20 \\implies x = 5$."
+            },
+            {
+                id: 56,
+                category: "Linear Equations",
+                question: "Solve for $x$: $\\frac{x}{3} + 5 = 12$.",
+                options: ["$x = 21$", "$x = 17$", "$x = 51$", "$x = 7$"],
+                correct: 0,
+                hint: "Subtract 5 from both sides, then multiply by 3.",
+                explanation: "$\\frac{x}{3} = 7 \\implies x = 7 \\times 3 = 21$."
+            },
+            {
+                id: 57,
+                category: "Equations with Fractions",
+                question: "Solve the equation: $\\frac{2x - 3}{4} = 3$.",
+                options: ["$x = 7.5$", "$x = 6$", "$x = 9$", "$x = 4.5$"],
+                correct: 0,
+                hint: "Multiply both sides by 4 first.",
+                explanation: "$2x - 3 = 12 \\implies 2x = 15 \\implies x = 7.5$."
+            },
+            {
+                id: 58,
+                category: "Unknowns on Both Sides",
+                question: "Solve for $x$: $4(x - 2) = 2(x + 3)$.",
+                options: ["$x = 7$", "$x = 5$", "$x = 1$", "$x = 3$"],
+                correct: 0,
+                hint: "Expand both sides: $4x - 8 = 2x + 6$.",
+                explanation: "$4x - 2x = 6 + 8 \\implies 2x = 14 \\implies x = 7$."
+            },
+            {
+                id: 59,
+                category: "Equation Word Problem",
+                question: "Sarah thinks of a number, multiplies it by 4, subtracts 7, and gets 25. What is the number?",
+                options: ["$x = 8$", "$x = 4.5$", "$x = 6$", "$x = 7.5$"],
+                correct: 0,
+                hint: "Set up equation $4x - 7 = 25$.",
+                explanation: "$4x = 32 \\implies x = 8$."
+            },
+            {
+                id: 60,
+                category: "Advanced Linear Equations",
+                question: "Solve for $x$: $5(x - 2) - 2(3x - 4) = 3$.",
+                options: ["$x = -2$", "$x = 2$", "$x = 5$", "$x = -5$"],
+                correct: 0,
+                hint: "Expand carefully and collect like terms.",
+                explanation: "$5x - 10 - 6x + 8 = 3 \\implies -x - 2 = 3 \\implies -x = 5 \\implies x = -2$."
+            }
+        ];
+
+        let currentIdx = 0;
+        let userAnswers = Array(questions.length).fill(null); // stores selected option index
+        let score = 0;
+
+        // Load saved state from localStorage if available
+        function loadSavedProgress() {
+            try {
+                const savedAnswers = localStorage.getItem('cambridge_alg_60_answers');
+                const savedIdx = localStorage.getItem('cambridge_alg_60_idx');
+                if (savedAnswers) {
+                    userAnswers = JSON.parse(savedAnswers);
+                    recalculateScore();
+                }
+                if (savedIdx) {
+                    currentIdx = parseInt(savedIdx, 10);
+                    if (isNaN(currentIdx) || currentIdx < 0 || currentIdx >= questions.length) {
+                        currentIdx = 0;
+                    }
+                }
+            } catch (e) {
+                console.error("Could not load saved progress", e);
+            }
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem('cambridge_alg_60_answers', JSON.stringify(userAnswers));
+                localStorage.setItem('cambridge_alg_60_idx', currentIdx.toString());
+            } catch (e) {
+                console.error("Could not save progress", e);
+            }
+        }
+
+        function recalculateScore() {
+            score = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] !== null && userAnswers[i] === questions[i].correct) {
+                    score++;
+                }
+            }
+        }
+
+        function renderDrawerGrid() {
+            const drawerGrid = document.getElementById('drawerGrid');
+            let answeredCount = 0;
+
+            drawerGrid.innerHTML = questions.map((q, idx) => {
+                const ans = userAnswers[idx];
+                let btnClass = "w-9 h-9 rounded-lg font-bold text-xs flex items-center justify-center border transition ";
+                
+                if (ans === null) {
+                    btnClass += "bg-slate-100 border-slate-200 text-slate-600 hover:bg-indigo-50 hover:border-indigo-300";
+                } else if (ans === q.correct) {
+                    btnClass += "bg-emerald-500 border-emerald-600 text-white shadow-sm";
+                    answeredCount++;
+                } else {
+                    btnClass += "bg-rose-500 border-rose-600 text-white shadow-sm";
+                    answeredCount++;
+                }
+
+                if (idx === currentIdx) {
+                    btnClass += " ring-2 ring-indigo-600 ring-offset-2";
+                }
+
+                return `
+                    <button onclick="jumpToQuestion(${idx})" class="${btnClass}">
+                        ${idx + 1}
+                    </button>
+                `;
+            }).join('');
+
+            document.getElementById('drawerAnsweredCount').innerText = `${answeredCount} / ${questions.length} answered`;
+        }
+
+        function toggleNavDrawer() {
+            const drawer = document.getElementById('navDrawer');
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                renderDrawerGrid();
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            currentIdx = idx;
+            saveProgress();
+            renderQuiz();
+            toggleNavDrawer();
+        }
+
+        function renderQuiz() {
+            const q = questions[currentIdx];
+            const container = document.getElementById('quizCardContainer');
+            
+            // Update Progress Bar
+            const progressPercent = ((currentIdx + 1) / questions.length) * 100;
+            document.getElementById('progressText').innerText = `Question ${currentIdx + 1} of ${questions.length}`;
+            document.getElementById('progressPercent').innerText = `${Math.round(progressPercent)}% Completed`;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+            container.innerHTML = `
+                <div class="space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full tracking-wide">${q.category}</span>
+                        <span class="text-xs font-bold text-slate-400">Question ${currentIdx + 1} / ${questions.length}</span>
+                    </div>
+
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 leading-relaxed">${q.question}</h2>
+
+                    <!-- Hint Toggle -->
+                    <div>
+                        <button onclick="toggleHint()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1.5 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span id="hintBtnText">Show Hint</span>
+                        </button>
+                        <div id="hintBox" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 text-amber-900 text-xs rounded-xl leading-relaxed">
+                            💡 <strong>Hint:</strong> ${q.hint}
+                        </div>
+                    </div>
+
+                    <!-- Options Grid -->
+                    <div class="grid grid-cols-1 gap-3 pt-2" id="optionsGrid">
+                        ${q.options.map((opt, oIdx) => {
+                            const isSelected = userAnswers[currentIdx] === oIdx;
+                            const isAnswered = userAnswers[currentIdx] !== null;
+                            let btnClass = "p-4 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left font-semibold text-sm transition flex items-center justify-between";
+                            let iconClass = "fa-regular fa-circle text-slate-300";
+
+                            if (isAnswered) {
+                                if (oIdx === q.correct) {
+                                    btnClass = "p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-bold text-sm text-left flex items-center justify-between shadow-sm";
+                                    iconClass = "fa-solid fa-circle-check text-emerald-600 text-lg";
+                                } else if (isSelected && oIdx !== q.correct) {
+                                    btnClass = "p-4 rounded-2xl border-2 border-rose-400 bg-rose-50 text-rose-950 font-semibold text-sm text-left flex items-center justify-between shadow-sm";
+                                    iconClass = "fa-solid fa-circle-xmark text-rose-500 text-lg";
+                                } else {
+                                    btnClass = "p-4 rounded-2xl border border-slate-200 opacity-40 text-left font-semibold text-sm flex items-center justify-between";
+                                }
+                            }
+
+                            return `
+                                <button onclick="selectOption(${oIdx})" ${isAnswered ? 'disabled' : ''} class="${btnClass}">
+                                    <span>${opt}</span>
+                                    <i class="${iconClass}"></i>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <!-- Explanation Box -->
+                    <div id="explanationBox" class="${userAnswers[currentIdx] !== null ? '' : 'hidden'} p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${userAnswers[currentIdx] === q.correct ? 'bg-emerald-50 text-emerald-950 border border-emerald-200' : 'bg-rose-50 text-rose-950 border border-rose-200'}">
+                        <p class="font-bold mb-1">${userAnswers[currentIdx] === q.correct ? '🎉 Correct Answer!' : '💡 Detailed Explanation:'}</p>
+                        <p>${q.explanation}</p>
+                    </div>
+                </div>
+            `;
+
+            // Navigation button states
+            document.getElementById('prevBtn').disabled = currentIdx === 0;
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentIdx === questions.length - 1) {
+                nextBtn.innerHTML = `<span>Finish Quiz</span> <i class="fa-solid fa-flag-checkered"></i>`;
+            } else {
+                nextBtn.innerHTML = `<span>Next Question</span> <i class="fa-solid fa-arrow-right"></i>`;
+            }
+
+            updateNavScore();
+
+            if (window.renderMathInElement) {
+                renderMathInElement(container, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        function selectOption(oIdx) {
+            if (userAnswers[currentIdx] !== null) return; // already answered
+            userAnswers[currentIdx] = oIdx;
+
+            recalculateScore();
+            saveProgress();
+            renderQuiz();
+        }
+
+        function toggleHint() {
+            const hintBox = document.getElementById('hintBox');
+            const hintBtnText = document.getElementById('hintBtnText');
+            if (hintBox.classList.contains('hidden')) {
+                hintBox.classList.remove('hidden');
+                hintBtnText.innerText = 'Hide Hint';
+            } else {
+                hintBox.classList.add('hidden');
+                hintBtnText.innerText = 'Show Hint';
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                saveProgress();
+                renderQuiz();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                saveProgress();
+                renderQuiz();
+            }
+        }
+
+        function updateNavScore() {
+            document.getElementById('navScore').innerText = `Score: ${score} / ${questions.length}`;
+        }
+
+        function showResults() {
+            document.getElementById('quizCardContainer').classList.add('hidden');
+            document.getElementById('quizControls').classList.add('hidden');
+            
+            const resultsBox = document.getElementById('resultsBox');
+            resultsBox.classList.remove('hidden');
+
+            const percentage = Math.round((score / questions.length) * 100);
+            let evaluation = "";
+            if (percentage >= 90) {
+                evaluation = `Outstanding work! You scored ${score} out of ${questions.length} (${percentage}%). You demonstrate exceptional mastery of Cambridge Grade 8 algebra and are fully prepared for advanced mathematical challenges.`;
+            } else if (percentage >= 70) {
+                evaluation = `Great job! You scored ${score} out of ${questions.length} (${percentage}%). You have a solid grasp of algebraic concepts with minor areas for review.`;
+            } else {
+                evaluation = `You scored ${score} out of ${questions.length} (${percentage}%). Review the step-by-step explanations for the questions you missed to strengthen your algebraic foundations.`;
+            }
+
+            document.getElementById('resultSummaryText').innerText = evaluation;
+        }
+
+        function restartQuiz() {
+            currentIdx = 0;
+            score = 0;
+            userAnswers = Array(questions.length).fill(null);
+            saveProgress();
+            updateNavScore();
+            document.getElementById('resultsBox').classList.add('hidden');
+            document.getElementById('quizCardContainer').classList.remove('hidden');
+            document.getElementById('quizControls').classList.remove('hidden');
+            renderQuiz();
+        }
+
+        function resetQuizData() {
+            if (confirm("Are you sure you want to reset all your progress?")) {
+                localStorage.removeItem('cambridge_alg_60_answers');
+                localStorage.removeItem('cambridge_alg_60_idx');
+                restartQuiz();
+                if (!document.getElementById('navDrawer').classList.contains('translate-x-full')) {
+                    toggleNavDrawer();
+                }
+            }
+        }
+
+        function reviewAnswers() {
+            currentIdx = 0;
+            saveProgress();
+            document.getElementById('resultsBox').classList.add('hidden');
+            document.getElementById('quizCardContainer').classList.remove('hidden');
+            document.getElementById('quizControls').classList.remove('hidden');
+            renderQuiz();
+        }
+
+        window.onload = function() {
+            loadSavedProgress();
+            renderQuiz();
+            updateNavScore();
+
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        };
+    </script>
+</body>
+</html>
