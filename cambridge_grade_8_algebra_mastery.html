@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Grade 8 Mathematics: Algebraic Expressions & Equations</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX CDN for mathematical typesetting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .highlight-glow {
+            transition: all 0.3s ease;
+        }
+        .highlight-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2);
+        }
+        .katex-display {
+            margin: 0.5em 0 !important;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 4px 0;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-indigo-200">
+                        $x$
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-slate-900 text-base tracking-tight block leading-tight">Cambridge Algebra Mastery</span>
+                        <span class="text-xs text-indigo-600 font-medium">Grade 8 Lower Secondary</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center space-x-1 text-sm font-semibold text-slate-600">
+                    <a href="#objectives" class="px-3 py-2 rounded-lg hover:text-indigo-600 hover:bg-indigo-50 transition">🎯 Objectives</a>
+                    <a href="#warmup" class="px-3 py-2 rounded-lg hover:text-indigo-600 hover:bg-indigo-50 transition">🔥 Warm-Up (6)</a>
+                    <a href="#realworld" class="px-3 py-2 rounded-lg hover:text-indigo-600 hover:bg-indigo-50 transition">🌐 Real World</a>
+                    <a href="#expressions" class="px-3 py-2 rounded-lg hover:text-indigo-600 hover:bg-indigo-50 transition">📖 Expressions</a>
+                    <a href="#equations" class="px-3 py-2 rounded-lg hover:text-indigo-600 hover:bg-indigo-50 transition">⚖️ Equations</a>
+                    <a href="#practice" class="px-3 py-2 rounded-lg hover:text-indigo-600 hover:bg-indigo-50 transition">✍️ Quiz</a>
+                </div>
+
+                <!-- Progress Indicator -->
+                <div class="flex items-center space-x-2 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100">
+                    <i class="fa-solid fa-trophy text-amber-500 text-sm"></i>
+                    <span id="globalScore" class="text-xs font-bold text-indigo-900">Score: 0 / 12</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <section id="objectives" class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 max-w-3xl space-y-6">
+                <div class="inline-flex items-center space-x-2 bg-indigo-500/30 border border-indigo-400/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-indigo-200">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Cambridge Lower Secondary Mathematics Curriculum</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                    Algebraic Expressions & <span class="text-amber-400">Linear Equations</span>
+                </h1>
+                <p class="text-indigo-200 text-base sm:text-lg leading-relaxed">
+                    Master foundational algebra! Learn how to simplify algebraic expressions, expand brackets (including quadratic binomial products and difference of squares), execute various division types, and solve linear equations.
+                </p>
+
+                <!-- Objective Card -->
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4">
+                    <h2 class="text-lg font-bold text-amber-300 flex items-center space-x-2">
+                        <i class="fa-solid fa-bullseye text-amber-400"></i>
+                        <span>Learning Objectives:</span>
+                    </h2>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-indigo-100">
+                        <li class="flex items-start space-x-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1 shrink-0"></i>
+                            <span>Understand and simplify algebraic expressions using like and unlike terms.</span>
+                        </li>
+                        <li class="flex items-start space-x-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1 shrink-0"></i>
+                            <span>Perform arithmetic operations including bracket expansion, binomial multiplication, and quadratics (e.g., $(2x-3)(2x+3)$).</span>
+                        </li>
+                        <li class="flex items-start space-x-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1 shrink-0"></i>
+                            <span>Execute algebraic division across multiple types (monomials, higher powers, and multi-variables).</span>
+                        </li>
+                        <li class="flex items-start space-x-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1 shrink-0"></i>
+                            <span>Formulate and solve linear equations with unknowns on both sides and brackets.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="warmup" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-indigo-600 font-bold text-sm tracking-wide uppercase">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>Part 1: Diagnostic Exercise</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Warm-Up (6 Quick Questions)</h2>
+                </div>
+                <div class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1.5 rounded-xl flex items-center space-x-1">
+                    <span>Warm-Up Score: </span>
+                    <span id="warmupScore">0</span><span>/6</span>
+                </div>
+            </div>
+
+            <p class="text-slate-600 text-sm">
+                Test your basic understanding of substitution, integer rules, and fundamental operations before diving into the main concepts.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="warmupContainer">
+                <!-- Dynamic Warm-up Questions -->
+            </div>
+        </section>
+
+        <section id="realworld" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+            <div class="inline-flex items-center space-x-2 text-indigo-600 font-bold text-sm tracking-wide uppercase">
+                <i class="fa-solid fa-earth-americas"></i>
+                <span>Part 2: Contextual Application</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Real World Application: Why Algebra?</h2>
+            
+            <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                In everyday life, we frequently encounter unknown quantities. Imagine you manage an online gaming store selling game passes ($x$) and item boosters ($y$). Algebraic expressions help calculate total revenue instantly!
+            </p>
+
+            <!-- Interactive Simulator -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-6">
+                <div class="flex items-center space-x-3 text-slate-800 font-bold text-base">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <span>Store Revenue & Stock Simulator</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4 text-sm">
+                        <div class="space-y-3 bg-white p-4 rounded-xl border border-slate-200">
+                            <label class="block font-semibold text-slate-700">Game Passes Sold ($x$):</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="range" id="simX" min="1" max="15" value="5" class="w-full accent-indigo-600">
+                                <span id="valX" class="font-bold text-indigo-600 text-lg min-w-[2rem]">5</span>
+                            </div>
+
+                            <label class="block font-semibold text-slate-700 mt-2">Booster Packs Sold ($y$):</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="range" id="simY" min="1" max="15" value="3" class="w-full accent-emerald-600">
+                                <span id="valY" class="font-bold text-emerald-600 text-lg min-w-[2rem]">3</span>
+                            </div>
+
+                            <label class="block font-semibold text-slate-700 mt-2">Fixed Administrative Cost (Constant):</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="range" id="simC" min="0" max="50" value="20" step="5" class="w-full accent-amber-600">
+                                <span id="valC" class="font-bold text-amber-600 text-lg min-w-[2rem]">20</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-900 text-white p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-indigo-300 font-bold block mb-1">Algebraic Revenue Expression ($R$):</span>
+                            <div id="algebraicResult" class="text-2xl font-extrabold text-amber-300">
+                                $5x + 3y + 20$
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-800/80 p-4 rounded-xl space-y-2 border border-indigo-700/50">
+                            <span id="simPriceContext" class="text-xs text-indigo-200 font-semibold block">If 1 Game Pass = $\$12$ ($x=12$) and 1 Booster = $\$5$ ($y=5$):</span>
+                            <div id="numericResult" class="text-xl font-bold text-emerald-300">
+                                Total Revenue = $5(12) + 3(5) + 20 = \$95$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="expressions" class="space-y-12">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="inline-flex items-center space-x-2 text-indigo-600 font-bold text-sm tracking-wide uppercase">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Part 3: Concepts & Algebraic Operations</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Mastering Algebraic Expressions</h2>
+            </div>
+
+            <!-- TOPIC 1: VOCABULARY & LIKE TERMS -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm">1</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">Terminology & Like Terms</h3>
+                </div>
+
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    An <strong>algebraic expression</strong> combines numbers, variables (letters), and operation symbols. Click the expression parts below to explore their definitions:
+                </p>
+
+                <!-- Interactive Term Diagram -->
+                <div class="bg-slate-900 text-white p-6 rounded-2xl space-y-6">
+                    <div class="text-center space-y-2">
+                        <span class="text-xs text-indigo-300 font-semibold uppercase tracking-wider">Click Elements Below:</span>
+                        <div class="flex items-center justify-center space-x-2 text-3xl sm:text-4xl font-extrabold tracking-wider py-4">
+                            <button onclick="highlightTerm('coef')" class="px-2 py-1 rounded bg-indigo-500/30 hover:bg-indigo-500/50 text-amber-400 border border-indigo-400 transition" title="Coefficient">$-4$</button>
+                            <button onclick="highlightTerm('var')" class="px-2 py-1 rounded bg-indigo-500/30 hover:bg-indigo-500/50 text-indigo-300 border border-indigo-400 transition" title="Variable">$x$</button>
+                            <button onclick="highlightTerm('exp')" class="px-1 py-1 rounded bg-indigo-500/30 hover:bg-indigo-500/50 text-emerald-400 border border-indigo-400 text-xl font-bold -mt-4 transition" title="Exponent / Power">$3$</button>
+                            <span class="text-slate-400">$+$</span>
+                            <button onclick="highlightTerm('coef2')" class="px-2 py-1 rounded bg-indigo-500/30 hover:bg-indigo-500/50 text-amber-400 border border-indigo-400 transition" title="Coefficient">$7$</button>
+                            <button onclick="highlightTerm('var2')" class="px-2 py-1 rounded bg-indigo-500/30 hover:bg-indigo-500/50 text-indigo-300 border border-indigo-400 transition" title="Variable">$x$</button>
+                            <span class="text-slate-400">$-$</span>
+                            <button onclick="highlightTerm('const')" class="px-2 py-1 rounded bg-indigo-500/30 hover:bg-indigo-500/50 text-rose-400 border border-indigo-400 transition" title="Constant">$15$</button>
+                        </div>
+                    </div>
+
+                    <div id="termExplanation" class="bg-slate-800/80 border border-slate-700 p-4 rounded-xl text-sm leading-relaxed text-slate-200">
+                        💬 <span class="font-bold text-amber-300">Hint:</span> Click any colored/numbered element above to view its definition!
+                    </div>
+                </div>
+
+                <!-- Definition Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-1">
+                        <span class="font-bold text-amber-900 text-sm block">1. Variable</span>
+                        <p class="text-amber-800">A letter representing an unknown or changing value (e.g., $x, y, a$).</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl space-y-1">
+                        <span class="font-bold text-indigo-900 text-sm block">2. Coefficient</span>
+                        <p class="text-indigo-800">The numerical multiplier in front of a variable (e.g., in $5x$, 5 is the coefficient).</p>
+                    </div>
+                    <div class="p-4 bg-rose-50 border border-rose-200 rounded-xl space-y-1">
+                        <span class="font-bold text-rose-900 text-sm block">3. Constant</span>
+                        <p class="text-rose-800">A fixed numerical value without any attached variable.</p>
+                    </div>
+                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-1">
+                        <span class="font-bold text-emerald-900 text-sm block">4. Term</span>
+                        <p class="text-emerald-800">Parts of an algebraic expression separated by $+$ or $-$ signs.</p>
+                    </div>
+                </div>
+
+                <!-- Like vs Unlike Terms -->
+                <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                    <h4 class="font-bold text-slate-900 text-base flex items-center space-x-2">
+                        <i class="fa-solid fa-shapes text-indigo-600"></i>
+                        <span>Golden Rule: Like Terms vs. Unlike Terms</span>
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <span class="font-bold text-emerald-600 block mb-1">✅ Like Terms (Can Combine)</span>
+                            <p class="text-slate-600 text-xs mb-2">Must have the <strong>exact same variables</strong> AND <strong>exact same powers</strong>.</p>
+                            <p class="font-mono text-xs bg-emerald-50 text-emerald-900 p-2 rounded border border-emerald-200">$3x$ and $-7x$ &bull; $5a^2b$ and $2a^2b$</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <span class="font-bold text-rose-600 block mb-1">❌ Unlike Terms (Cannot Combine)</span>
+                            <p class="text-slate-600 text-xs mb-2">Different variables OR different powers.</p>
+                            <p class="font-mono text-xs bg-rose-50 text-rose-900 p-2 rounded border border-rose-200">$4x$ and $4y$ &bull; $3x^2$ and $3x^3$</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm">2</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">Addition & Subtraction of Algebra</h3>
+                </div>
+
+                <div class="p-4 bg-rose-50 border border-rose-200 rounded-2xl space-y-2 text-xs sm:text-sm text-rose-900">
+                    <span class="font-extrabold text-rose-700 flex items-center space-x-1">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>BRACKET EXPANSION RULE FOR SUBTRACTION:</span>
+                    </span>
+                    <p class="leading-relaxed">
+                        When a minus sign precedes a set of brackets, you must distribute the negative sign to <strong>every term inside the brackets</strong>!
+                        <br>
+                        $$\text{Example: } -(4x - 3y + 5) = -4x + 3y - 5$$
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-600 text-white px-2.5 py-1 rounded-md">Example 1 (Addition)</span>
+                        <p class="text-slate-800 font-medium text-sm">Simplify: $(5x - 2y + 4) + (3x + 6y - 7)$</p>
+                        <button onclick="toggleSolution('sol_add')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sol_add"></i>
+                            <span id="text_sol_add">Show Solution Steps</span>
+                        </button>
+                        <div id="sol_add" class="hidden bg-white p-4 rounded-xl border border-indigo-100 text-sm space-y-2 text-slate-700">
+                            <ol class="list-decimal list-inside space-y-1.5 text-xs sm:text-sm">
+                                <li>Group like terms:
+                                    <br>$$= (5x + 3x) + (-2y + 6y) + (4 - 7)$$
+                                </li>
+                                <li>Simplify coefficients:
+                                    <br><span class="font-bold text-indigo-600">$$= 8x + 4y - 3$$</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-600 text-white px-2.5 py-1 rounded-md">Example 2 (Subtraction)</span>
+                        <p class="text-slate-800 font-medium text-sm">Simplify: $(7x + 3y - 5) - (2x - 4y + 3)$</p>
+                        <button onclick="toggleSolution('sol_sub')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sub"></i>
+                            <span id="text_sol_sub">Show Solution Steps</span>
+                        </button>
+                        <div id="sol_sub" class="hidden bg-white p-4 rounded-xl border border-indigo-100 text-sm space-y-2 text-slate-700">
+                            <ol class="list-decimal list-inside space-y-1.5 text-xs sm:text-sm">
+                                <li>Distribute the minus sign:
+                                    <br>$$= 7x + 3y - 5 - 2x + 4y - 3$$
+                                </li>
+                                <li>Group & combine:
+                                    <br>$$= (7x - 2x) + (3y + 4y) + (-5 - 3)$$
+                                    <br><span class="font-bold text-indigo-600">$$= 5x + 7y - 8$$</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm">3</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">Multiplication & Expanding Brackets (Binomials & Quadratics)</h3>
+                </div>
+
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Multiplying variables with the same base adds their exponents ($x^a \times x^b = x^{a+b}$). Expanding brackets uses the <strong>distributive law</strong> ($a(b + c) = ab + ac$) and FOIL/quadratic multiplication methods.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-600 text-white px-2.5 py-1 rounded-md">Single & Combined</span>
+                        <p class="text-slate-800 font-medium text-sm">Expand: $3x(2x - 5) + 4(x^2 + 3x)$</p>
+                        <button onclick="toggleSolution('sol_mul1')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sol_mul1"></i>
+                            <span id="text_sol_mul1">View Solution</span>
+                        </button>
+                        <div id="sol_mul1" class="hidden bg-white p-4 rounded-xl border border-indigo-100 text-sm space-y-2 text-slate-700">
+                            <ol class="list-decimal list-inside space-y-1.5 text-xs">
+                                <li>Multiply $3x$ into $(2x - 5)$: $6x^2 - 15x$</li>
+                                <li>Multiply $4$ into $(x^2 + 3x)$: $4x^2 + 12x$</li>
+                                <li>Combine: $6x^2 - 15x + 4x^2 + 12x$</li>
+                                <li><span class="font-bold text-indigo-600">Result: $10x^2 - 3x$</span></li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-600 text-white px-2.5 py-1 rounded-md">Binomial Expansion (FOIL)</span>
+                        <p class="text-slate-800 font-medium text-sm">Expand: $(x + 3)(x + 5)$</p>
+                        <button onclick="toggleSolution('sol_mul2')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sol_mul2"></i>
+                            <span id="text_sol_mul2">View Solution</span>
+                        </button>
+                        <div id="sol_mul2" class="hidden bg-white p-4 rounded-xl border border-indigo-100 text-sm space-y-2 text-slate-700">
+                            <ol class="list-decimal list-inside space-y-1.5 text-xs">
+                                <li><strong>First:</strong> $x \times x = x^2$</li>
+                                <li><strong>Outer:</strong> $x \times 5 = 5x$</li>
+                                <li><strong>Inner:</strong> $3 \times x = 3x$</li>
+                                <li><strong>Last:</strong> $3 \times 5 = 15$</li>
+                                <li>Combine: $x^2 + 5x + 3x + 15$</li>
+                                <li><span class="font-bold text-indigo-600">Simplified: $x^2 + 8x + 15$</span></li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="border border-amber-100 bg-amber-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-amber-600 text-white px-2.5 py-1 rounded-md">Quadratic / Difference of Squares</span>
+                        <p class="text-slate-800 font-medium text-sm">Expand: $(2x - 3)(2x + 3)$</p>
+                        <button onclick="toggleSolution('sol_mul3')" class="text-xs font-bold text-amber-700 hover:text-amber-900 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sol_mul3"></i>
+                            <span id="text_sol_mul3">View Solution</span>
+                        </button>
+                        <div id="sol_mul3" class="hidden bg-white p-4 rounded-xl border border-amber-100 text-sm space-y-2 text-slate-700">
+                            <ol class="list-decimal list-inside space-y-1.5 text-xs">
+                                <li><strong>First:</strong> $2x \times 2x = 4x^2$</li>
+                                <li><strong>Outer:</strong> $2x \times 3 = 6x$</li>
+                                <li><strong>Inner:</strong> $-3 \times 2x = -6x$</li>
+                                <li><strong>Last:</strong> $-3 \times 3 = -9$</li>
+                                <li>Combine: $4x^2 + 6x - 6x - 9$</li>
+                                <li><span class="font-bold text-amber-700">Result: $4x^2 - 9$</span> (Difference of Two Squares!)</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm">4</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">Division of Algebraic Expressions (Multiple Types)</h3>
+                </div>
+
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Algebraic division is performed by dividing coefficients and subtracting exponents of like variables ($\frac{x^a}{x^b} = x^{a-b}$). Below are three distinct types of algebraic division commonly tested in Cambridge Grade 8.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-600 text-white px-2.5 py-1 rounded-md">Type A: Binomial by Monomial</span>
+                        <p class="text-slate-800 font-medium text-sm">Simplify: $\frac{12x^3 - 8x^2}{4x}$</p>
+                        <button onclick="toggleSolution('sol_div1')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sol_div1"></i>
+                            <span id="text_sol_div1">View Solution</span>
+                        </button>
+                        <div id="sol_div1" class="hidden bg-white p-4 rounded-xl border border-indigo-100 text-xs space-y-1.5 text-slate-700">
+                            <p>1. Split into separate fractions: $\frac{12x^3}{4x} - \frac{8x^2}{4x}$</p>
+                            <p>2. Divide coefficients & subtract powers: $3x^{3-1} - 2x^{2-1}$</p>
+                            <p class="font-bold text-indigo-600">Result: $3x^2 - 2x$</p>
+                        </div>
+                    </div>
+
+                    <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-600 text-white px-2.5 py-1 rounded-md">Type B: Higher Powers & Negatives</span>
+                        <p class="text-slate-800 font-medium text-sm">Simplify: $\frac{-18x^4 + 12x^3}{6x^2}$</p>
+                        <button onclick="toggleSolution('sol_div2')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sol_div2"></i>
+                            <span id="text_sol_div2">View Solution</span>
+                        </button>
+                        <div id="sol_div2" class="hidden bg-white p-4 rounded-xl border border-indigo-100 text-xs space-y-1.5 text-slate-700">
+                            <p>1. Split terms: $\frac{-18x^4}{6x^2} + \frac{12x^3}{6x^2}$</p>
+                            <p>2. Compute: $-3x^{4-2} + 2x^{3-2}$</p>
+                            <p class="font-bold text-indigo-600">Result: $-3x^2 + 2x$</p>
+                        </div>
+                    </div>
+
+                    <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 space-y-3">
+                        <span class="text-xs font-extrabold uppercase bg-indigo-600 text-white px-2.5 py-1 rounded-md">Type C: Multi-Variable Division</span>
+                        <p class="text-slate-800 font-medium text-sm">Simplify: $\frac{24a^3b^2 - 16a^2b^4}{8ab^2}$</p>
+                        <button onclick="toggleSolution('sol_div3')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_sol_div3"></i>
+                            <span id="text_sol_div3">View Solution</span>
+                        </button>
+                        <div id="sol_div3" class="hidden bg-white p-4 rounded-xl border border-indigo-100 text-xs space-y-1.5 text-slate-700">
+                            <p>1. Split terms: $\frac{24a^3b^2}{8ab^2} - \frac{16a^2b^4}{8ab^2}$</p>
+                            <p>2. Apply index laws: $3a^{3-1}b^{2-2} - 2a^{2-1}b^{4-2}$</p>
+                            <p class="font-bold text-indigo-600">Result: $3a^2 - 2ab^2$</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="equations" class="space-y-12">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="inline-flex items-center space-x-2 text-indigo-600 font-bold text-sm tracking-wide uppercase">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Part 4: Equations & Balance Method</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Linear Equations & Solving Techniques</h2>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-2xl text-xs sm:text-sm text-indigo-900 space-y-2">
+                    <span class="font-extrabold text-indigo-700 block">Expressions vs. Equations:</span>
+                    <p>An <strong>Algebraic Expression</strong> does not have an equals sign (e.g., $3x + 5$). An <strong>Equation</strong> contains an equals sign ($=$) and states that two expressions are equal (e.g., $3x + 5 = 17$).</p>
+                </div>
+
+                <h3 class="text-lg font-bold text-slate-900">Worked Examples on Solving Equations:</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Two-Step Equation -->
+                    <div class="border border-slate-200 rounded-2xl p-5 space-y-3 bg-slate-50">
+                        <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Type 1: Two-Step Equation</span>
+                        <p class="font-medium text-slate-800 text-sm">Solve: $4x - 7 = 13$</p>
+                        <button onclick="toggleSolution('eq_1')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_eq_1"></i>
+                            <span id="text_eq_1">View Solution</span>
+                        </button>
+                        <div id="eq_1" class="hidden bg-white p-4 rounded-xl border text-xs sm:text-sm space-y-1.5 text-slate-700">
+                            <p>1. Add 7 to both sides: $4x = 13 + 7 \implies 4x = 20$</p>
+                            <p>2. Divide both sides by 4: $x = \frac{20}{4}$</p>
+                            <p class="font-bold text-indigo-600">Answer: $x = 5$</p>
+                        </div>
+                    </div>
+
+                    <!-- Brackets -->
+                    <div class="border border-slate-200 rounded-2xl p-5 space-y-3 bg-slate-50">
+                        <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Type 2: Equations with Brackets</span>
+                        <p class="font-medium text-slate-800 text-sm">Solve: $3(2x + 4) = 24$</p>
+                        <button onclick="toggleSolution('eq_2')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_eq_2"></i>
+                            <span id="text_eq_2">View Solution</span>
+                        </button>
+                        <div id="eq_2" class="hidden bg-white p-4 rounded-xl border text-xs sm:text-sm space-y-1.5 text-slate-700">
+                            <p>1. Expand brackets: $6x + 12 = 24$</p>
+                            <p>2. Subtract 12 from both sides: $6x = 12$</p>
+                            <p>3. Divide by 6: $x = 2$</p>
+                            <p class="font-bold text-indigo-600">Answer: $x = 2$</p>
+                        </div>
+                    </div>
+
+                    <!-- Both Sides -->
+                    <div class="border border-slate-200 rounded-2xl p-5 space-y-3 bg-slate-50">
+                        <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Type 3: Unknowns on Both Sides</span>
+                        <p class="font-medium text-slate-800 text-sm">Solve: $5x - 3 = 2x + 12$</p>
+                        <button onclick="toggleSolution('eq_3')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_eq_3"></i>
+                            <span id="text_eq_3">View Solution</span>
+                        </button>
+                        <div id="eq_3" class="hidden bg-white p-4 rounded-xl border text-xs sm:text-sm space-y-1.5 text-slate-700">
+                            <p>1. Subtract $2x$ from both sides: $3x - 3 = 12$</p>
+                            <p>2. Add 3 to both sides: $3x = 15$</p>
+                            <p>3. Divide by 3: $x = 5$</p>
+                            <p class="font-bold text-indigo-600">Answer: $x = 5$</p>
+                        </div>
+                    </div>
+
+                    <!-- Word Problem -->
+                    <div class="border border-slate-200 rounded-2xl p-5 space-y-3 bg-slate-50">
+                        <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">Type 4: Word Problem</span>
+                        <p class="font-medium text-slate-800 text-sm">"Three times a number plus 7 gives 28. What is the number?"</p>
+                        <button onclick="toggleSolution('eq_4')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1">
+                            <i class="fa-solid fa-eye" id="icon_eq_4"></i>
+                            <span id="text_eq_4">View Solution</span>
+                        </button>
+                        <div id="eq_4" class="hidden bg-white p-4 rounded-xl border text-xs sm:text-sm space-y-1.5 text-slate-700">
+                            <p>1. Let the unknown number be $x$. Form equation: $3x + 7 = 28$</p>
+                            <p>2. Subtract 7: $3x = 21$</p>
+                            <p>3. Divide by 3: $x = 7$</p>
+                            <p class="font-bold text-indigo-600">Answer: The number is $7$.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <div>
+                    <div class="inline-flex items-center space-x-2 text-indigo-600 font-bold text-sm tracking-wide uppercase">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                        <span>Part 5: Independent Practice Quiz</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Check Your Understanding</h2>
+                </div>
+                <div class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1.5 rounded-xl flex items-center space-x-1">
+                    <span>Quiz Score: </span>
+                    <span id="quizScore">0</span><span>/6</span>
+                </div>
+            </div>
+
+            <p class="text-slate-600 text-sm">
+                Test your mastery by answering these 6 curated Cambridge-style questions covering expansion, division, and equation solving.
+            </p>
+
+            <div class="space-y-6" id="quizContainer">
+                <!-- Dynamic Quiz Questions -->
+            </div>
+
+            <!-- Final Evaluation Box -->
+            <div id="finalEvaluation" class="hidden bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-3xl p-8 text-center space-y-4 shadow-xl">
+                <div class="w-16 h-16 bg-amber-400 text-slate-900 rounded-full flex items-center justify-center text-3xl font-black mx-auto shadow-lg">
+                    🏆
+                </div>
+                <h3 class="text-2xl font-extrabold">Congratulations! Module Completed!</h3>
+                <p id="evaluationText" class="text-indigo-200 max-w-xl mx-auto text-sm sm:text-base"></p>
+                <button onclick="resetAllQuiz()" class="inline-flex items-center space-x-2 bg-amber-400 text-slate-900 font-bold px-6 py-3 rounded-xl hover:bg-amber-300 transition shadow-md">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Restart Quiz</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let warmupScores = Array(6).fill(false);
+        let quizScores = Array(6).fill(false);
+
+        // Warmup Data (6 Questions)
+        const warmupData = [
+            {
+                id: 1,
+                question: "Evaluate the expression $3x - 5$ when $x = 4$.",
+                options: ["$7$", "$12$", "$17$", "$10$"],
+                correct: 0,
+                explanation: "Substitute $x = 4$: $3(4) - 5 = 12 - 5 = 7$."
+            },
+            {
+                id: 2,
+                question: "Simplify by collecting like terms: $5x + 3y - 2x + 4y$.",
+                options: ["$3x + 7y$", "$7x + 7y$", "$3x - y$", "$10xy$"],
+                correct: 0,
+                explanation: "Group like terms: $(5x - 2x) + (3y + 4y) = 3x + 7y$."
+            },
+            {
+                id: 3,
+                question: "Expand the brackets: $3(2x - 4)$.",
+                options: ["$6x - 4$", "$6x - 12$", "$5x - 7$", "$6x + 12$"],
+                correct: 1,
+                explanation: "Multiply 3 by each term inside: $3 \\times 2x - 3 \\times 4 = 6x - 12$."
+            },
+            {
+                id: 4,
+                question: "Solve the linear equation: $2x + 6 = 14$.",
+                options: ["$x = 4$", "$x = 10$", "$x = 7$", "$x = 3$"],
+                correct: 0,
+                explanation: "Subtract 6 from both sides ($2x = 8$), then divide by 2 ($x = 4$)."
+            },
+            {
+                id: 5,
+                question: "Simplify the division: $\\frac{10x^3}{2x}$.",
+                options: ["$5x^2$", "$8x^2$", "$5x^3$", "$10x^2$"],
+                correct: 0,
+                explanation: "Divide coefficients ($10 \\div 2 = 5$) and subtract powers ($x^{3-1} = x^2$), resulting in $5x^2$."
+            },
+            {
+                id: 6,
+                question: "Expand the binomial product: $(x + 2)(x + 3)$.",
+                options: ["$x^2 + 5x + 6$", "$x^2 + 6x + 5$", "$x^2 + 6$", "$2x + 5$"],
+                correct: 0,
+                explanation: "Using FOIL: $x^2 + 3x + 2x + 6 = x^2 + 5x + 6$."
+            }
+        ];
+
+        // Practice Quiz Data (6 Questions)
+        const quizData = [
+            {
+                id: 1,
+                title: "Question 1: Subtraction with Brackets",
+                question: "Simplify: $(8x + 5y - 3) - (3x - 2y + 4)$.",
+                options: ["$5x + 7y - 7$", "$5x + 3y + 1$", "$11x + 7y - 7$", "$5x - 7y - 7$"],
+                correct: 0,
+                explanation: "Distribute the negative sign: $8x + 5y - 3 - 3x + 2y - 4$. Grouping yields $(8x - 3x) + (5y + 2y) + (-3 - 4) = 5x + 7y - 7$."
+            },
+            {
+                id: 2,
+                title: "Question 2: Quadratic / Difference of Squares",
+                question: "Expand and simplify: $(3x - 4)(3x + 4)$.",
+                options: ["$9x^2 - 16$", "$9x^2 - 24x - 16$", "$9x^2 + 16$", "$6x^2 - 8$"],
+                correct: 0,
+                explanation: "Using $(a-b)(a+b) = a^2 - b^2$: $(3x)^2 - (4)^2 = 9x^2 - 16$."
+            },
+            {
+                id: 3,
+                title: "Question 3: Algebraic Division",
+                question: "Simplify: $\\frac{15a^4b^2 - 10a^3b^5}{5a^2b^2}$.",
+                options: ["$3a^2 - 2ab^3$", "$3a^2 - 2ab^2$", "$3a^2b - 2ab^3$", "$3a - 2ab$"],
+                correct: 0,
+                explanation: "Divide each term: $\\frac{15a^4b^2}{5a^2b^2} - \\frac{10a^3b^5}{5a^2b^2} = 3a^{4-2}b^{2-2} - 2a^{3-2}b^{5-2} = 3a^2 - 2ab^3$."
+            },
+            {
+                id: 4,
+                title: "Question 4: Equations with Brackets",
+                question: "Solve the equation: $3(2x - 1) = 15$.",
+                options: ["$x = 2$", "$x = 3$", "$x = 4$", "$x = 5$"],
+                correct: 1,
+                explanation: "Expand brackets: $6x - 3 = 15$. Add 3: $6x = 18 \\implies x = 3$."
+            },
+            {
+                id: 5,
+                title: "Question 5: Unknowns on Both Sides",
+                question: "Solve for $x$: $7x - 4 = 3x + 16$.",
+                options: ["$x = 3$", "$x = 5$", "$x = 4$", "$x = 6$"],
+                correct: 1,
+                explanation: "Subtract $3x$: $4x - 4 = 16$. Add 4: $4x = 20$. Divide by 4: $x = 5$."
+            },
+            {
+                id: 6,
+                title: "Question 6: Perimeter Word Problem",
+                question: "A rectangle has a length of $(3x + 2)$ cm and a width of $(x + 4)$ cm. Find its perimeter when $x = 3$.",
+                options: ["$36$ cm", "$28$ cm", "$42$ cm", "$30$ cm"],
+                correct: 0,
+                explanation: "When $x = 3$, Length = $3(3)+2 = 11$, Width = $3+4 = 7$. Perimeter = $2(11 + 7) = 36$ cm."
+            }
+        ];
+
+        function renderWarmup() {
+            const container = document.getElementById('warmupContainer');
+            container.innerHTML = warmupData.map((q, idx) => `
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4 highlight-glow">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-md">Question ${idx + 1}</span>
+                        <span id="warmupBadge_${idx}" class="text-xs font-semibold text-slate-400">Unanswered</span>
+                    </div>
+                    <p class="text-slate-800 text-sm font-medium leading-relaxed">${q.question}</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        ${q.options.map((opt, oIdx) => `
+                            <button onclick="checkWarmup(${idx}, ${oIdx})" id="btn_w_${idx}_${oIdx}" 
+                                class="p-2.5 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 font-medium text-left transition flex items-center justify-between">
+                                <span>${opt}</span>
+                                <i id="icon_w_${idx}_${oIdx}" class="fa-regular fa-circle text-slate-300"></i>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="exp_w_${idx}" class="hidden p-3 rounded-xl text-xs space-y-1"></div>
+                </div>
+            `).join('');
+            if (window.renderMathInElement) renderMathInElement(container);
+        }
+
+        function checkWarmup(qIdx, selectedOpt) {
+            const q = warmupData[qIdx];
+            const isCorrect = selectedOpt === q.correct;
+            warmupScores[qIdx] = isCorrect;
+
+            q.options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`btn_w_${qIdx}_${oIdx}`);
+                const icon = document.getElementById(`icon_w_${qIdx}_${oIdx}`);
+                btn.disabled = true;
+
+                if (oIdx === q.correct) {
+                    btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+                    icon.className = 'fa-solid fa-circle-check text-emerald-600';
+                } else if (oIdx === selectedOpt && !isCorrect) {
+                    btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-900');
+                    icon.className = 'fa-solid fa-circle-xmark text-rose-500';
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            const badge = document.getElementById(`warmupBadge_${qIdx}`);
+            if (isCorrect) {
+                badge.className = 'text-xs font-bold text-emerald-600';
+                badge.innerText = 'Correct! ✓';
+            } else {
+                badge.className = 'text-xs font-bold text-rose-500';
+                badge.innerText = 'Incorrect ✗';
+            }
+
+            const exp = document.getElementById(`exp_w_${qIdx}`);
+            exp.classList.remove('hidden');
+            exp.className = isCorrect ? 'p-3 rounded-xl text-xs bg-emerald-50 text-emerald-900 border border-emerald-200' : 'p-3 rounded-xl text-xs bg-rose-50 text-rose-900 border border-rose-200';
+            exp.innerHTML = `<strong>${isCorrect ? 'Spot on!' : 'Explanation:'}</strong> ${q.explanation}`;
+
+            updateScoreUI();
+            if (window.renderMathInElement) renderMathInElement(exp);
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizData.map((q, idx) => `
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <span class="font-bold text-slate-900 text-base">${q.title}</span>
+                        <span id="quizBadge_${idx}" class="text-xs font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full">Pending</span>
+                    </div>
+
+                    <p class="text-slate-800 text-sm font-medium leading-relaxed">${q.question}</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        ${q.options.map((opt, oIdx) => `
+                            <button onclick="checkQuiz(${idx}, ${oIdx})" id="btn_q_${idx}_${oIdx}" 
+                                class="p-3.5 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-left font-semibold transition flex items-center justify-between">
+                                <span>${opt}</span>
+                                <i id="icon_q_${idx}_${oIdx}" class="fa-regular fa-circle text-slate-300"></i>
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div id="exp_q_${idx}" class="hidden p-4 rounded-2xl text-xs sm:text-sm leading-relaxed"></div>
+                </div>
+            `).join('');
+            if (window.renderMathInElement) renderMathInElement(container);
+        }
+
+        function checkQuiz(qIdx, selectedOpt) {
+            const q = quizData[qIdx];
+            const isCorrect = selectedOpt === q.correct;
+            quizScores[qIdx] = isCorrect;
+
+            q.options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`btn_q_${qIdx}_${oIdx}`);
+                const icon = document.getElementById(`icon_q_${qIdx}_${oIdx}`);
+                btn.disabled = true;
+
+                if (oIdx === q.correct) {
+                    btn.className = 'p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-left transition flex items-center justify-between';
+                    icon.className = 'fa-solid fa-circle-check text-emerald-600';
+                } else if (oIdx === selectedOpt && !isCorrect) {
+                    btn.className = 'p-3.5 rounded-xl border-2 border-rose-400 bg-rose-50 text-rose-900 text-left transition flex items-center justify-between';
+                    icon.className = 'fa-solid fa-circle-xmark text-rose-500';
+                } else {
+                    btn.classList.add('opacity-40');
+                }
+            });
+
+            const badge = document.getElementById(`quizBadge_${qIdx}`);
+            if (isCorrect) {
+                badge.className = 'text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full';
+                badge.innerText = 'Correct! ✓';
+            } else {
+                badge.className = 'text-xs font-bold text-rose-700 bg-rose-100 px-2.5 py-1 rounded-full';
+                badge.innerText = 'Incorrect ✗';
+            }
+
+            const exp = document.getElementById(`exp_q_${qIdx}`);
+            exp.classList.remove('hidden');
+            exp.className = isCorrect ? 'p-4 rounded-2xl text-xs sm:text-sm bg-emerald-50 text-emerald-950 border border-emerald-200' : 'p-4 rounded-2xl text-xs sm:text-sm bg-rose-50 text-rose-950 border border-rose-200';
+            exp.innerHTML = `<p class="font-bold mb-1">${isCorrect ? '🎉 Correct Answer!' : '💡 Detailed Explanation:'}</p><p>${q.explanation}</p>`;
+
+            updateScoreUI();
+            if (window.renderMathInElement) renderMathInElement(exp);
+        }
+
+        function updateScoreUI() {
+            const wScore = warmupScores.filter(Boolean).length;
+            const qScore = quizScores.filter(Boolean).length;
+
+            document.getElementById('warmupScore').innerText = wScore;
+            document.getElementById('quizScore').innerText = qScore;
+            document.getElementById('globalScore').innerText = `Score: ${wScore + qScore} / 12`;
+
+            const allQuizAnswered = quizScores.some((_, i) => document.getElementById(`btn_q_${i}_0`).disabled);
+            if (allQuizAnswered && quizScores.every((val, i) => document.getElementById(`btn_q_${i}_0`).disabled)) {
+                const evalBox = document.getElementById('finalEvaluation');
+                evalBox.classList.remove('hidden');
+                
+                const totalScore = wScore + qScore;
+                document.getElementById('evaluationText').innerText = 
+                    `You achieved a total score of ${totalScore} out of 12! ${
+                        totalScore >= 11 ? 'Outstanding mastery! You are exceptionally well-prepared for Cambridge assessments.' : 
+                        totalScore >= 8 ? 'Great job! You have a solid grasp of algebra concepts. Keep sharpening your skills!' : 
+                        'Good effort! Review the worked examples above to strengthen your algebra proficiency.'
+                    }`;
+            }
+        }
+
+        function highlightTerm(type) {
+            const box = document.getElementById('termExplanation');
+            const explanations = {
+                'coef': '<span class="font-bold text-amber-300">Coefficient (-4):</span> The numerical multiplier attached in front of the variable $x^3$.',
+                'var': '<span class="font-bold text-indigo-300">Variable (x):</span> The unknown letter symbol representing changing values.',
+                'exp': '<span class="font-bold text-emerald-300">Exponent / Power (3):</span> Indicates repeated multiplication of the variable ($x^3 = x \\times x \\times x$).',
+                'coef2': '<span class="font-bold text-amber-300">Coefficient (7):</span> The numerical multiplier attached to $x$ in the second term.',
+                'var2': '<span class="font-bold text-indigo-300">Variable (x):</span> The variable to the power of 1.',
+                'const': '<span class="font-bold text-rose-300">Constant (15):</span> A fixed numerical value without any attached variable.'
+            };
+            box.innerHTML = explanations[type] || '';
+            if (window.renderMathInElement) renderMathInElement(box);
+        }
+
+        function toggleSolution(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(`icon_${id}`);
+            const text = document.getElementById(`text_${id}`);
+
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.className = 'fa-solid fa-eye-slash';
+                text.innerText = 'Hide Solution Steps';
+            } else {
+                el.classList.add('hidden');
+                icon.className = 'fa-solid fa-eye';
+                text.innerText = 'View Solution';
+            }
+        }
+
+        // Real-world Simulator Handler
+        function updateSimulator() {
+            const x = parseInt(document.getElementById('simX').value);
+            const y = parseInt(document.getElementById('simY').value);
+            const c = parseInt(document.getElementById('simC').value);
+
+            document.getElementById('valX').innerText = x;
+            document.getElementById('valY').innerText = y;
+            document.getElementById('valC').innerText = c;
+
+            let algStr = `${x}x + ${y}y`;
+            if (c > 0) algStr += ` + ${c}`;
+            
+            document.getElementById('algebraicResult').innerHTML = `$${algStr}$`;
+
+            const priceX = 12;
+            const priceY = 5;
+            const total = (x * priceX) + (y * priceY) + c;
+            
+            document.getElementById('simPriceContext').innerHTML = `If 1 Game Pass = $\\$${priceX}$ ($x=${x}$) and 1 Booster = $\\$${priceY}$ ($y=${y}$):`;
+            document.getElementById('numericResult').innerHTML = 
+                `Total Revenue = $${x}(${priceX}) + ${y}(${priceY}) + ${c} = \\$${total}$`;
+
+            if (window.renderMathInElement) {
+                renderMathInElement(document.getElementById('algebraicResult'));
+                renderMathInElement(document.getElementById('simPriceContext'));
+                renderMathInElement(document.getElementById('numericResult'));
+            }
+        }
+
+        function resetAllQuiz() {
+            warmupScores.fill(false);
+            quizScores.fill(false);
+            renderWarmup();
+            renderQuiz();
+            document.getElementById('finalEvaluation').classList.add('hidden');
+            updateScoreUI();
+            if (window.renderMathInElement) renderMathInElement(document.body);
+        }
+
+        window.onload = function() {
+            renderWarmup();
+            renderQuiz();
+            updateSimulator();
+
+            document.getElementById('simX').addEventListener('input', updateSimulator);
+            document.getElementById('simY').addEventListener('input', updateSimulator);
+            document.getElementById('simC').addEventListener('input', updateSimulator);
+
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        };
+    </script>
+</body>
+</html>
