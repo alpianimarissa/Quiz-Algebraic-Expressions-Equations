@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Grade 8 Math: Equations & Inequalities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-active {
+            border-bottom: 3px solid #4f46e5;
+            color: #4f46e5;
+            font-weight: 700;
+        }
+        .keyword-badge {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            color: #3730a3;
+        }
+        .step-card {
+            transition: all 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-indigo-600 rounded-lg">
+                    <i class="fa-solid fa-calculator text-2xl text-yellow-300"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-xl sm:text-2xl tracking-tight">Algebraic Mastery</h1>
+                    <p class="text-xs text-indigo-200">Cambridge Lower Secondary Mathematics (Grade 8)</p>
+                </div>
+            </div>
+            <div class="bg-indigo-800 text-xs px-3 py-1.5 rounded-full font-medium text-indigo-100 flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap text-yellow-400"></i> Stage 8 Curriculum
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white border-b border-slate-200 sticky top-[72px] z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 flex overflow-x-auto space-x-8 text-sm font-medium scrollbar-none">
+            <button onclick="switchTab('objectives')" id="tab-objectives" class="py-4 px-2 tab-active whitespace-nowrap flex items-center gap-2">
+                <i class="fa-solid fa-bullseye"></i> 1. Objectives & Goals
+            </button>
+            <button onclick="switchTab('theory')" id="tab-theory" class="py-4 px-2 text-slate-500 hover:text-indigo-600 whitespace-nowrap flex items-center gap-2">
+                <i class="fa-solid fa-book-open"></i> 2. Concept & Theory
+            </button>
+            <button onclick="switchTab('keywords')" id="tab-keywords" class="py-4 px-2 text-slate-500 hover:text-indigo-600 whitespace-nowrap flex items-center gap-2">
+                <i class="fa-solid fa-key"></i> 3. Word Problem Keywords
+            </button>
+            <button onclick="switchTab('examples')" id="tab-examples" class="py-4 px-2 text-slate-500 hover:text-indigo-600 whitespace-nowrap flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb"></i> 4. Worked Examples
+            </button>
+            <button onclick="switchTab('practice')" id="tab-practice" class="py-4 px-2 text-slate-500 hover:text-indigo-600 whitespace-nowrap flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square"></i> 5. Guided Practice
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- SECTION 1: OBJECTIVES -->
+        <section id="sec-objectives" class="space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-3 bg-indigo-100 text-indigo-700 rounded-xl">
+                        <i class="fa-solid fa-bullseye text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Learning Objectives (Tujuan Pembelajaran)</h2>
+                        <p class="text-slate-500 text-sm">Cambridge Curriculum Stage 8 Framework Reference</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 hover:border-indigo-300 transition">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                            <h3 class="font-semibold text-lg text-slate-800">Linear Equations (Persamaan Linear)</h3>
+                        </div>
+                        <ul class="space-y-2 text-slate-600 text-sm ml-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                                <span>Solve linear equations with unknown on one side or both sides (e.g., \( 3x + 5 = 2x - 7 \)).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                                <span>Solve equations involving brackets and fractions: \( 2(x - 4) = 10 \).</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 hover:border-indigo-300 transition">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                            <h3 class="font-semibold text-lg text-slate-800">Inequalities (Pertidaksamaan)</h3>
+                        </div>
+                        <ul class="space-y-2 text-slate-600 text-sm ml-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                                <span>Understand and use inequality symbols: \( <, >, \le, \ge \).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                                <span>Solve simple linear inequalities and represent solutions on a **Number Line** (Garis Bilangan).</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 hover:border-indigo-300 transition md:col-span-2">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                            <h3 class="font-semibold text-lg text-slate-800">Application & Word Problems (Soal Cerita)</h3>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Construct algebraic equations and inequalities from real-world contexts by identifying key mathematical terminology in English (*English Vocabulary for Math*).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THEORY & CONCEPTS -->
+        <section id="sec-theory" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-8">
+                <!-- Concept 1: Equations vs Inequalities -->
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-scale-balanced text-indigo-600"></i> Equations vs Inequalities
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+                            <h3 class="font-bold text-indigo-900 text-lg mb-2">Equation (Persamaan)</h3>
+                            <p class="text-sm text-indigo-800 mb-2">Pernyataan bahwa dua ekspresi bernilai <strong>SAMA EXACTLY EQUAL</strong>.</p>
+                            <div class="bg-white p-3 rounded-lg text-center font-mono font-bold text-indigo-700 shadow-sm text-lg">
+                                \( 2x + 3 = 9 \)
+                            </div>
+                            <p class="text-xs text-indigo-600 mt-2">Hanya memiliki 1 solusi spesifik: \( x = 3 \)</p>
+                        </div>
+
+                        <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                            <h3 class="font-bold text-amber-900 text-lg mb-2">Inequality (Pertidaksamaan)</h3>
+                            <p class="text-sm text-amber-800 mb-2">Menunjukkan hubungan <strong>TIDAK SAMA / BANDINGAN</strong> antara dua nilai.</p>
+                            <div class="bg-white p-3 rounded-lg text-center font-mono font-bold text-amber-700 shadow-sm text-lg">
+                                \( 2x + 3 < 9 \)
+                            </div>
+                            <p class="text-xs text-amber-600 mt-2">Memiliki rentang/banyak solusi: \( x < 3 \)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Concept 2: Inequality Symbols & Number Line Representation -->
+                <div class="border-t border-slate-200 pt-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Inequality Symbols & Number Line Rules</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-600 border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800">
+                                    <th class="p-3 rounded-l-lg">Symbol</th>
+                                    <th class="p-3">English Term</th>
+                                    <th class="p-3">Artinya (Indonesian)</th>
+                                    <th class="p-3 rounded-r-lg">Number Line Circle</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr>
+                                    <td class="p-3 font-bold text-lg text-indigo-600 font-mono"><</td>
+                                    <td class="p-3 font-semibold">Strictly Less than</td>
+                                    <td class="p-3">Kurang dari</td>
+                                    <td class="p-3"><span class="px-2 py-1 bg-slate-200 text-slate-700 rounded text-xs font-mono">Open Circle (◯)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-lg text-indigo-600 font-mono">></td>
+                                    <td class="p-3 font-semibold">Strictly Greater than</td>
+                                    <td class="p-3">Lebih dari</td>
+                                    <td class="p-3"><span class="px-2 py-1 bg-slate-200 text-slate-700 rounded text-xs font-mono">Open Circle (◯)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-lg text-indigo-600 font-mono">≤</td>
+                                    <td class="p-3 font-semibold">Less than or equal to / At most</td>
+                                    <td class="p-3">Kurang dari atau sama dengan / Maksimum</td>
+                                    <td class="p-3"><span class="px-2 py-1 bg-indigo-600 text-white rounded text-xs font-mono">Closed Circle (●)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-lg text-indigo-600 font-mono">≥</td>
+                                    <td class="p-3 font-semibold">Greater than or equal to / At least</td>
+                                    <td class="p-3">Lebih dari atau sama dengan / Minimum</td>
+                                    <td class="p-3"><span class="px-2 py-1 bg-indigo-600 text-white rounded text-xs font-mono">Closed Circle (●)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Concept 3: Complete Guide: When to Flip the Inequality Sign -->
+                <div class="p-6 bg-rose-50 border border-rose-200 rounded-2xl space-y-4">
+                    <h4 class="font-extrabold text-rose-900 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600 text-xl"></i>
+                        KAPAN HARUS MEMBALIK TANDA PERTIDAKSAMAAN? (Sign Flipping Rules)
+                    </h4>
+                    
+                    <p class="text-sm text-rose-900 leading-relaxed">
+                        Tanda pertidaksamaan <strong>WAJIB DIBALIK</strong> (\( < \) menjadi \( > \), atau \( \le \) menjadi \( \ge \)) <strong>HANYA JIKA</strong> kamu <strong>MENGALI</strong> atau <strong>MEMBAGI</strong> kedua sisi dengan <strong>BILANGAN NEGATIF</strong>.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                        <!-- FLIP Condition -->
+                        <div class="p-4 bg-white border-l-4 border-rose-500 rounded-r-xl shadow-sm space-y-2">
+                            <span class="px-2 py-0.5 bg-rose-100 text-rose-800 font-bold rounded text-xs">WAJIB DIBALIK (FLIP)</span>
+                            <p class="font-semibold text-slate-800">Mengali / Membagi dengan NEGATIF:</p>
+                            <div class="bg-rose-50 p-2.5 rounded font-mono text-slate-800 border border-rose-100">
+                                \( -2x < 6 \)<br>
+                                \( \downarrow \) <em>Bagi kedua sisi dengan -2</em><br>
+                                <span class="font-bold text-rose-600">\( x > -3 \)</span> <span class="text-xs text-rose-500 font-sans">(Tanda \( < \) dibalik jadi \( > \))</span>
+                            </div>
+                        </div>
+
+                        <!-- NO FLIP Condition -->
+                        <div class="p-4 bg-white border-l-4 border-emerald-500 rounded-r-xl shadow-sm space-y-2">
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded text-xs">TIDAK DIBALIK (NO FLIP)</span>
+                            <p class="font-semibold text-slate-800">Tambah/Kurang, atau Mengali/Membagi POSITIF:</p>
+                            <div class="bg-emerald-50 p-2.5 rounded font-mono text-slate-800 border border-emerald-100">
+                                \( 2x < -6 \)<br>
+                                \( \downarrow \) <em>Bagi kedua sisi dengan +2 (Pembagi Positif)</em><br>
+                                <span class="font-bold text-emerald-600">\( x < -3 \)</span> <span class="text-xs text-emerald-600 font-sans">(Tanda tetap \( < \))</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-100/70 p-3 rounded-lg text-xs text-amber-900 flex items-start gap-2">
+                        <i class="fa-solid fa-lightbulb text-amber-600 mt-0.5"></i>
+                        <span><strong>Mengapa harus dibalik?</strong> Logikanya sederhana: Kita tahu \( 2 < 5 \). Namun jika dikali dengan \( -1 \), hasilnya adalah \( -2 \) dan \( -5 \). Karena \( -2 \) lebih besar dari \( -5 \), maka hubungannya menjadi \( -2 > -5 \).</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: KEYWORDS IN WORD PROBLEMS -->
+        <section id="sec-keywords" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-900">Word Problem Translation Guide (Kata Kunci Soal Cerita)</h2>
+                    <p class="text-slate-500 text-sm">Pelajari kata kunci Bahasa Inggris berikut untuk merubah soal cerita menjadi bentuk aljabar.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Addition & Subtraction -->
+                    <div class="border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <h3 class="font-bold text-indigo-700 border-b border-slate-100 pb-2 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-plus-minus"></i> Addition & Subtraction
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between items-center p-2 bg-slate-50 rounded">
+                                <span class="font-semibold text-slate-800">"Sum of", "More than", "Increased by"</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 font-mono rounded font-bold">+</span>
+                            </li>
+                            <li class="flex justify-between items-center p-2 bg-slate-50 rounded">
+                                <span class="font-semibold text-slate-800">"Difference", "Less than", "Decreased by"</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 font-mono rounded font-bold">-</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Multiplication & Division -->
+                    <div class="border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <h3 class="font-bold text-indigo-700 border-b border-slate-100 pb-2 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-xmark"></i> Multiplication & Division
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between items-center p-2 bg-slate-50 rounded">
+                                <span class="font-semibold text-slate-800">"Product of", "Times", "Twice / Double"</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 font-mono rounded font-bold">×</span>
+                            </li>
+                            <li class="flex justify-between items-center p-2 bg-slate-50 rounded">
+                                <span class="font-semibold text-slate-800">"Quotient", "Divided by", "Per"</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 font-mono rounded font-bold">÷</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Equations Keywords -->
+                    <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-5">
+                        <h3 class="font-bold text-emerald-800 border-b border-emerald-100 pb-2 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-equals"></i> Equation Keywords (=)
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-slate-700"><span class="font-bold text-emerald-700">"Is", "Is equal to", "Gives", "Results in", "The total is"</span></p>
+                            <p class="text-xs text-slate-500 italic">Contoh: "5 times a number <strong>is</strong> 20" ➜ \( 5x = 20 \)</p>
+                        </div>
+                    </div>
+
+                    <!-- Inequality Keywords -->
+                    <div class="border border-amber-200 bg-amber-50/50 rounded-xl p-5">
+                        <h3 class="font-bold text-amber-800 border-b border-amber-100 pb-2 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-greater-than-equal"></i> Inequality Keywords
+                        </h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="font-semibold text-slate-800">"At least", "No less than"</span>
+                                <span class="font-mono font-bold text-amber-700">≥</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-semibold text-slate-800">"At most", "Maximum of"</span>
+                                <span class="font-mono font-bold text-amber-700">≤</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-semibold text-slate-800">"Exceeds", "More than"</span>
+                                <span class="font-mono font-bold text-amber-700">></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: WORKED EXAMPLES -->
+        <section id="sec-examples" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-8">
+                <h2 class="text-2xl font-bold text-slate-900">Step-by-Step Worked Examples</h2>
+
+                <!-- Example 1: Direct Equation -->
+                <div class="border border-slate-200 rounded-xl p-5 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">Type 1: Direct Equation</span>
+                        <span class="text-xs text-slate-400">Algebraic Expansion</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">Solve for \( x \): \( 3(x + 4) = 2x + 19 \)</h3>
+
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-slate-50 rounded-lg flex items-start gap-3">
+                            <span class="font-bold text-indigo-600">Step 1:</span>
+                            <div>
+                                <p class="font-semibold">Expand the brackets (Buka kurung):</p>
+                                <p class="font-mono text-slate-700 mt-1">\( 3x + 12 = 2x + 19 \)</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg flex items-start gap-3">
+                            <span class="font-bold text-indigo-600">Step 2:</span>
+                            <div>
+                                <p class="font-semibold">Collect variables on one side (Kurangi \(2x\) dari kedua sisi):</p>
+                                <p class="font-mono text-slate-700 mt-1">\( 3x - 2x + 12 = 19 \quad \Rightarrow \quad x + 12 = 19 \)</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg flex items-start gap-3">
+                            <span class="font-bold text-indigo-600">Step 3:</span>
+                            <div>
+                                <p class="font-semibold">Isolate the variable (Kurangi \(12\) dari kedua sisi):</p>
+                                <p class="font-mono text-emerald-600 font-bold mt-1 text-base">\( x = 7 \)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example 2: Inequality with Negative Division (Render Fixed) -->
+                <div class="border border-slate-200 rounded-xl p-5 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full">Type 2: Inequality (Flip Sign)</span>
+                        <span class="text-xs text-slate-400">Inequality Rule</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">Solve for \( y \): \( 5 - 2y \le 13 \)</h3>
+
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 bg-slate-50 rounded-lg flex items-start gap-3">
+                            <span class="font-bold text-amber-600">Step 1:</span>
+                            <div>
+                                <p class="font-semibold">Subtract 5 from both sides (Kurangi 5):</p>
+                                <p class="font-mono text-slate-700 mt-1">\( -2y \le 13 - 5 \quad \Rightarrow \quad -2y \le 8 \)</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-rose-50 rounded-lg flex items-start gap-3 border border-rose-200">
+                            <span class="font-bold text-rose-600">Step 2:</span>
+                            <div>
+                                <p class="font-semibold text-rose-900">Divide by \( -2 \) AND FLIP THE SIGN! (Bagi dengan \( -2 \) &amp; BALIK TANDA):</p>
+                                <p class="font-mono text-rose-700 font-bold mt-1 text-base">\( y \ge \frac{8}{-2} \quad \Rightarrow \quad y \ge -4 \)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example 3: Word Problem (Equation) -->
+                <div class="border border-slate-200 rounded-xl p-5 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">Type 3: Word Problem</span>
+                        <span class="text-xs text-slate-400">Contextual Application</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg italic text-slate-700">
+                        "Sarah has some candles. Maya has <span class="bg-yellow-200 font-semibold px-1">3 times as many</span> candles as Sarah. Together, they have <span class="bg-yellow-200 font-semibold px-1">a total of 48</span> candles. Form an equation and find how many candles Sarah has."
+                    </div>
+
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Keyword Analysis:</strong></p>
+                        <ul class="list-disc ml-5 text-slate-600 space-y-1">
+                            <li>Let Sarah's candles = \( x \)</li>
+                            <li>"3 times as many" ➜ Maya's candles = \( 3x \)</li>
+                            <li>"Total of 48" ➜ Equation: \( x + 3x = 48 \)</li>
+                        </ul>
+                        <div class="p-3 bg-emerald-50 text-emerald-900 rounded-lg font-mono font-semibold">
+                            \( 4x = 48 \quad \Rightarrow \quad x = 12 \) candles (Sarah)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: GUIDED PRACTICE -->
+        <section id="sec-practice" class="hidden space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Guided Interactive Practice</h2>
+                    <p class="text-slate-500 text-sm">Uji pemahamanmu dengan latihan soal interaktif di bawah ini.</p>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="p-5 border border-slate-200 rounded-xl space-y-4 bg-slate-50/50">
+                    <span class="text-xs font-bold px-2.5 py-1 bg-indigo-100 text-indigo-700 rounded-md">Question 1 (Direct Inequality)</span>
+                    <p class="font-medium text-slate-800">Solve the inequality: <span class="font-mono font-bold text-indigo-600">\( 4x - 7 < 17 \)</span></p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <button onclick="checkAnswer(1, 'A')" class="q1-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">A) \( x < 2.5 \)</button>
+                        <button onclick="checkAnswer(1, 'B')" class="q1-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">B) \( x < 6 \)</button>
+                        <button onclick="checkAnswer(1, 'C')" class="q1-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">C) \( x > 6 \)</button>
+                        <button onclick="checkAnswer(1, 'D')" class="q1-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">D) \( x < 10 \)</button>
+                    </div>
+                    <div id="feedback-1" class="hidden p-3 rounded-lg text-sm font-medium"></div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="p-5 border border-slate-200 rounded-xl space-y-4 bg-slate-50/50">
+                    <span class="text-xs font-bold px-2.5 py-1 bg-amber-100 text-amber-800 rounded-md">Question 2 (Word Problem)</span>
+                    <p class="font-medium text-slate-800">
+                        "David has <span class="underline">at most $50</span> to spend. He buys a game for $20 and wants to buy several books costing $6 each." Which inequality models this scenario?
+                    </p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <button onclick="checkAnswer(2, 'A')" class="q2-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">A) \( 6b + 20 \ge 50 \)</button>
+                        <button onclick="checkAnswer(2, 'B')" class="q2-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">B) \( 6b - 20 \le 50 \)</button>
+                        <button onclick="checkAnswer(2, 'C')" class="q2-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">C) \( 6b + 20 \le 50 \)</button>
+                        <button onclick="checkAnswer(2, 'D')" class="q2-btn p-3 bg-white border border-slate-300 rounded-lg text-left hover:bg-indigo-50 transition text-sm">D) \( 20b + 6 = 50 \)</button>
+                    </div>
+                    <div id="feedback-2" class="hidden p-3 rounded-lg text-sm font-medium"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Tab switching function
+        function switchTab(tabId) {
+            const tabs = ['objectives', 'theory', 'keywords', 'examples', 'practice'];
+            tabs.forEach(tab => {
+                document.getElementById(`sec-${tab}`).classList.add('hidden');
+                document.getElementById(`tab-${tab}`).classList.remove('tab-active');
+                document.getElementById(`tab-${tab}`).classList.add('text-slate-500');
+            });
+
+            const activeSec = document.getElementById(`sec-${tabId}`);
+            activeSec.classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`).classList.add('tab-active');
+            document.getElementById(`tab-${tabId}`).classList.remove('text-slate-500');
+
+            // Trigger MathJax re-render when switching tabs
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([activeSec]);
+            }
+        }
+
+        // Quiz Logic
+        function checkAnswer(questionNum, answer) {
+            const feedbackEl = document.getElementById(`feedback-${questionNum}`);
+            feedbackEl.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            if (questionNum === 1) {
+                if (answer === 'B') {
+                    feedbackEl.classList.add('bg-emerald-100', 'text-emerald-800');
+                    feedbackEl.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! 4x < 24 ➜ x < 6.';
+                } else {
+                    feedbackEl.classList.add('bg-rose-100', 'text-rose-800');
+                    feedbackEl.innerHTML = '<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrect. Add 7 to both sides first (4x < 24), then divide by 4.';
+                }
+            } else if (questionNum === 2) {
+                if (answer === 'C') {
+                    feedbackEl.classList.add('bg-emerald-100', 'text-emerald-800');
+                    feedbackEl.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Excellent! "At most" means less than or equal to (≤). Total cost = 6b + 20 ≤ 50.';
+                } else {
+                    feedbackEl.classList.add('bg-rose-100', 'text-rose-800');
+                    feedbackEl.innerHTML = '<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrect. Keyword "At most" translates to the ≤ symbol.';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
