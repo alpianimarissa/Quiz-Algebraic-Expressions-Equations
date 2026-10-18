@@ -75,7 +75,6 @@
         </div>
     </nav>
 
-    <!-- Slide-over Question Navigation Drawer -->
     <div id="navDrawer" class="fixed inset-y-0 right-0 z-50 w-72 bg-white shadow-2xl border-l border-slate-200 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
         <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
             <div class="flex items-center space-x-2">
@@ -93,7 +92,7 @@
             </div>
         </div>
         <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
-            <button onclick="resetQuizData()" class="text-xs font-bold text-rose-600 hover:text-rose-800 flex items-center space-x-1">
+            <button onclick="showResetModal()" class="text-xs font-bold text-rose-600 hover:text-rose-800 flex items-center space-x-1">
                 <i class="fa-solid fa-rotate-right"></i>
                 <span>Reset All Progress</span>
             </button>
@@ -101,7 +100,6 @@
         </div>
     </div>
 
-    <!-- Main Content Container -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 flex-grow w-full">
 
         <!-- Header / Intro Banner -->
@@ -152,7 +150,7 @@
         <!-- Results Completion Box (Hidden Initially) -->
         <div id="resultsBox" class="hidden bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-2xl">
             <div class="w-20 h-20 bg-amber-400 text-slate-900 rounded-2xl flex items-center justify-center text-4xl font-black mx-auto shadow-xl rotate-3">
-                🏆
+                <i class="fa-solid fa-trophy"></i>
             </div>
             <div class="space-y-2">
                 <h2 class="text-3xl font-extrabold tracking-tight">Quiz Completed Successfully!</h2>
@@ -173,11 +171,35 @@
 
     </main>
 
+    <!-- Custom Modal for Confirmation -->
+    <div id="resetModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full space-y-4 shadow-2xl border border-slate-100">
+            <div class="flex items-center space-x-3 text-rose-600">
+                <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 text-base">Reset Progress?</h3>
+            </div>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                Are you sure you want to clear all your answered questions and reset your score?
+            </p>
+            <div class="flex items-center justify-end space-x-3 pt-2">
+                <button onclick="closeResetModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 font-semibold text-xs transition">
+                    Cancel
+                </button>
+                <button onclick="confirmResetQuizData()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs transition shadow-md shadow-rose-200">
+                    Yes, Reset All
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-white border-t border-slate-200 py-6 mt-16 text-center text-xs text-slate-500">
         <p>Cambridge Lower Secondary Mathematics (Grade 8) • 60-Question Algebraic Expressions & Equations Suite</p>
     </footer>
 
     <script>
+        // Array of 60 questions with randomized and evenly distributed correct keys (A: 15, B: 15, C: 15, D: 15)
         const questions = [
             // --- TOPIC 1: Substitution & Terminology (Q1 - Q10) ---
             {
@@ -185,7 +207,7 @@
                 category: "Substitution & Evaluation",
                 question: "Evaluate the algebraic expression $5x^2 - 3x + 7$ when $x = -2$.",
                 options: ["$33$", "$17$", "$23$", "$9$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Remember $(-2)^2 = 4$. Substitute carefully and apply order of operations.",
                 explanation: "Substitute $x = -2$: $5(-2)^2 - 3(-2) + 7 = 5(4) + 6 + 7 = 20 + 6 + 7 = 33$."
             },
@@ -194,7 +216,7 @@
                 category: "Terminology",
                 question: "In the algebraic term $-7a^3b^2$, what is the coefficient?",
                 options: ["$3$", "$-7$", "$2$", "$7$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "The coefficient is the numerical factor multiplying the variables.",
                 explanation: "The numerical multiplier attached to the variables is $-7$."
             },
@@ -203,7 +225,7 @@
                 category: "Substitution & Evaluation",
                 question: "Calculate the value of $\\frac{4a^2 - b}{2}$ when $a = 3$ and $b = -8$.",
                 options: ["$20$", "$14$", "$22$", "$16$"],
-                correct: 2,
+                correct: 2, // C
                 hint: "Evaluate numerator first: $4(3)^2 - (-8)$.",
                 explanation: "$4(9) - (-8) = 36 + 8 = 44$. Then $\\frac{44}{2} = 22$."
             },
@@ -211,8 +233,8 @@
                 id: 4,
                 category: "Like & Unlike Terms",
                 question: "Which of the following terms is a 'like term' to $5x^2y$?",
-                options: ["$5xy^2$", "$-3x^2y$", "$2x^3y$", "$x^2y^2$"],
-                correct: 1,
+                options: ["$5xy^2$", "$2x^3y$", "$x^2y^2$", "$-3x^2y$"],
+                correct: 3, // D
                 hint: "Like terms must have identical variables with the exact same exponents.",
                 explanation: "$-3x^2y$ has the exact same variable parts and powers ($x^2$ and $y$)."
             },
@@ -221,7 +243,7 @@
                 category: "Substitution & Evaluation",
                 question: "Evaluate $P = 2l + 2w$ when $l = 12.5$ cm and $w = 7.5$ cm.",
                 options: ["$30$ cm", "$45$ cm", "$40$ cm", "$50$ cm"],
-                correct: 2,
+                correct: 2, // C
                 hint: "Substitute length and width into the perimeter formula.",
                 explanation: "$P = 2(12.5) + 2(7.5) = 25 + 15 = 40$ cm."
             },
@@ -230,7 +252,7 @@
                 category: "Terminology",
                 question: "How many terms are in the algebraic expression $4x^3 - 5x^2 + 7x - 12$?",
                 options: ["$2$", "$3$", "$4$", "$5$"],
-                correct: 2,
+                correct: 2, // C
                 hint: "Terms are separated by plus or minus signs.",
                 explanation: "The expression has 4 distinct terms: $4x^3$, $-5x^2$, $7x$, and $-12$."
             },
@@ -239,7 +261,7 @@
                 category: "Substitution & Evaluation",
                 question: "Find the value of $x^3 - 2x^2 + x - 5$ when $x = 3$.",
                 options: ["$13$", "$7$", "$19$", "$10$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "Cube 3 first, then square 3, and compute step by step.",
                 explanation: "$(3)^3 - 2(3)^2 + 3 - 5 = 27 - 2(9) + 3 - 5 = 27 - 18 + 3 - 5 = 7$."
             },
@@ -248,7 +270,7 @@
                 category: "Like & Unlike Terms",
                 question: "Identify the expression that cannot be simplified further.",
                 options: ["$3x + 5x$", "$7ab - 2ab$", "$4x^2 + 3x$", "$9y - 4y$"],
-                correct: 2,
+                correct: 2, // C
                 hint: "Unlike terms cannot be added or subtracted into a single term.",
                 explanation: "$4x^2$ and $3x$ are unlike terms because their powers ($2$ vs $1$) are different."
             },
@@ -257,7 +279,7 @@
                 category: "Substitution & Evaluation",
                 question: "Evaluate $\\sqrt{b^2 - 4ac}$ when $a = 2$, $b = -5$, and $c = -3$.",
                 options: ["$7$", "$5$", "$49$", "$11$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Compute $(-5)^2$ and $-4(2)(-3)$ first.",
                 explanation: "$(-5)^2 - 4(2)(-3) = 25 - (-24) = 25 + 24 = 49$. Then $\\sqrt{49} = 7$."
             },
@@ -266,7 +288,7 @@
                 category: "Terminology",
                 question: "What is the degree (highest power) of the polynomial $3x^4 - 5x^5 + 2x - 8$?",
                 options: ["$3$", "$4$", "$5$", "$1$"],
-                correct: 2,
+                correct: 2, // C
                 hint: "Look for the highest exponent among all terms.",
                 explanation: "The highest exponent on the variable $x$ is $5$ (in the term $-5x^5$)."
             },
@@ -276,8 +298,8 @@
                 id: 11,
                 category: "Like Terms",
                 question: "Simplify completely: $7a^2b - 3ab^2 + 4a^2b - 5ab^2 + 2ab$.",
-                options: ["$11a^2b - 8ab^2 + 2ab$", "$15a^4b^2 + 2ab$", "$3a^2b - 8ab^2$", "$11a^4b^2 + 2ab$"],
-                correct: 0,
+                options: ["$15a^4b^2 + 2ab$", "$11a^2b - 8ab^2 + 2ab$", "$3a^2b - 8ab^2$", "$11a^4b^2 + 2ab$"],
+                correct: 1, // B
                 hint: "Group terms with identical variable parts and exponents.",
                 explanation: "Combine like terms: $(7a^2b + 4a^2b) + (-3ab^2 - 5ab^2) + 2ab = 11a^2b - 8ab^2 + 2ab$."
             },
@@ -285,8 +307,8 @@
                 id: 12,
                 category: "Addition & Subtraction",
                 question: "Simplify: $(8x + 5y - 3) - (3x - 2y + 4)$.",
-                options: ["$5x + 3y + 1$", "$5x + 7y - 7$", "$11x + 7y - 7$", "$5x - 7y - 7$"],
-                correct: 1,
+                options: ["$5x + 3y + 1$", "$11x + 7y - 7$", "$5x - 7y - 7$", "$5x + 7y - 7$"],
+                correct: 3, // D
                 hint: "Distribute the negative sign to every term in the second set of brackets.",
                 explanation: "$8x + 5y - 3 - 3x + 2y - 4 = (8x - 3x) + (5y + 2y) + (-3 - 4) = 5x + 7y - 7$."
             },
@@ -295,7 +317,7 @@
                 category: "Like Terms",
                 question: "Simplify: $12p - 5q + 3p - 8q + 15$.",
                 options: ["$15p - 13q + 15$", "$9p - 13q$", "$15p + 3q + 15$", "$7p - 3q + 15$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Collect $p$ terms and $q$ terms separately.",
                 explanation: "$(12p + 3p) + (-5q - 8q) + 15 = 15p - 13q + 15$."
             },
@@ -304,7 +326,7 @@
                 category: "Addition & Subtraction",
                 question: "Find the sum of $(4x^2 - 3x + 5)$ and $(-2x^2 + 7x - 9)$.",
                 options: ["$6x^2 + 4x - 4$", "$2x^2 + 4x - 4$", "$2x^2 - 10x - 4$", "$2x^2 + 4x + 14$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "Add coefficients of corresponding powers of $x$.",
                 explanation: "$(4 - 2)x^2 + (-3 + 7)x + (5 - 9) = 2x^2 + 4x - 4$."
             },
@@ -312,8 +334,8 @@
                 id: 15,
                 category: "Like Terms",
                 question: "Simplify: $3(x^2y + 2xy^2) - 2(2x^2y - xy^2)$.",
-                options: ["$-x^2y + 8xy^2$", "$7x^2y + 4xy^2$", "$-x^2y + 4xy^2$", "$x^2y + 8xy^2$"],
-                correct: 0,
+                options: ["$7x^2y + 4xy^2$", "$-x^2y + 4xy^2$", "$x^2y + 8xy^2$", "$-x^2y + 8xy^2$"],
+                correct: 3, // D
                 hint: "Expand both brackets first, then group like terms.",
                 explanation: "$3x^2y + 6xy^2 - 4x^2y + 2xy^2 = (3 - 4)x^2y + (6 + 2)xy^2 = -x^2y + 8xy^2$."
             },
@@ -322,7 +344,7 @@
                 category: "Addition & Subtraction",
                 question: "Subtract $(5a - 3b + 7)$ from $(2a + 4b - 3)$.",
                 options: ["$3a - 7b + 10$", "$-3a + 7b - 10$", "$7a + b + 4$", "$-3a - b - 10$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "Write as $(2a + 4b - 3) - (5a - 3b + 7)$.",
                 explanation: "$2a + 4b - 3 - 5a + 3b - 7 = (2 - 5)a + (4 + 3)b + (-3 - 7) = -3a + 7b - 10$."
             },
@@ -331,7 +353,7 @@
                 category: "Like Terms",
                 question: "Simplify: $\\frac{1}{2}x + \\frac{1}{3}x - \\frac{1}{6}x$.",
                 options: ["$\\frac{2}{3}x$", "$x$", "$\\frac{1}{2}x$", "$\\frac{5}{6}x$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Find a common denominator for fractions (which is 6).",
                 explanation: "$\\frac{3}{6}x + \\frac{2}{6}x - \\frac{1}{6}x = \\frac{4}{6}x = \\frac{2}{3}x$."
             },
@@ -339,8 +361,8 @@
                 id: 18,
                 category: "Addition & Subtraction",
                 question: "Simplify: $m - (2m - (3m - 4))$.",
-                options: ["$2m - 4$", "$-2m + 4$", "$4m - 4$", "$2m + 4$"],
-                correct: 0,
+                options: ["$-2m + 4$", "$4m - 4$", "$2m - 4$", "$2m + 4$"],
+                correct: 2, // C
                 hint: "Work from the innermost parentheses outwards.",
                 explanation: "$m - (2m - 3m + 4) = m - (-m + 4) = m + m - 4 = 2m - 4$."
             },
@@ -348,8 +370,8 @@
                 id: 19,
                 category: "Like Terms",
                 question: "Simplify: $9xy - 4yx + 2x^2y - 5xy^2 + 3xy$.",
-                options: ["$8xy + 2x^2y - 5xy^2$", "$5xy + 2x^2y - 5xy^2$", "$8xy - 5xy^2$", "$16xy - 5xy^2$"],
-                correct: 0,
+                options: ["$5xy + 2x^2y - 5xy^2$", "$8xy - 5xy^2$", "$16xy - 5xy^2$", "$8xy + 2x^2y - 5xy^2$"],
+                correct: 3, // D
                 hint: "Note that $yx$ is the same as $xy$.",
                 explanation: "Combine $xy$ terms: $9xy - 4xy + 3xy = 8xy$. Other terms remain: $8xy + 2x^2y - 5xy^2$."
             },
@@ -358,7 +380,7 @@
                 category: "Addition & Subtraction",
                 question: "What must be added to $3x - 5y + 2$ to get $7x + 2y - 4$?",
                 options: ["$4x + 7y - 6$", "$4x - 3y - 6$", "$10x + 7y - 2$", "$4x + 7y + 6$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Subtract $(3x - 5y + 2)$ from $(7x + 2y - 4)$.",
                 explanation: "$(7x + 2y - 4) - (3x - 5y + 2) = (7 - 3)x + (2 - (-5))y + (-4 - 2) = 4x + 7y - 6$."
             },
@@ -368,8 +390,8 @@
                 id: 21,
                 category: "Bracket Expansion",
                 question: "Expand and simplify: $4(3x - 2) - 3(2x - 5)$.",
-                options: ["$6x + 7$", "$18x - 23$", "$6x - 23$", "$18x + 7$"],
-                correct: 0,
+                options: ["$18x - 23$", "$6x - 23$", "$6x + 7$", "$18x + 7$"],
+                correct: 2, // C
                 hint: "Carefully distribute both $4$ and $-3$.",
                 explanation: "$12x - 8 - 6x + 15 = (12 - 6)x + (-8 + 15) = 6x + 7$."
             },
@@ -378,7 +400,7 @@
                 category: "Bracket Expansion",
                 question: "Expand: $-2x(3x^2 - 4x + 7)$.",
                 options: ["$-6x^3 + 8x^2 - 14x$", "$-6x^3 - 8x^2 + 14x$", "$6x^3 - 8x^2 + 14x$", "$-6x^3 + 8x^2 + 14x$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Multiply $-2x$ into each term inside the bracket.",
                 explanation: "$-2x(3x^2) - 2x(-4x) - 2x(7) = -6x^3 + 8x^2 - 14x$."
             },
@@ -387,7 +409,7 @@
                 category: "Bracket Expansion",
                 question: "Expand and simplify: $5(2x + 3) + 2(3x - 4) - 3(x + 5)$.",
                 options: ["$13x + 8$", "$13x - 8$", "$19x - 8$", "$13x + 22$"],
-                correct: 0,
+                correct: 1, // B
                 hint: "Expand all three parts then combine like terms.",
                 explanation: "$10x + 15 + 6x - 8 - 3x - 15 = (10 + 6 - 3)x + (15 - 8 - 15) = 13x - 8$."
             },
@@ -396,7 +418,7 @@
                 category: "Bracket Expansion",
                 question: "Which of the following is equivalent to $24x - 18$ factored fully?",
                 options: ["$3(8x - 6)$", "$6(4x - 3)$", "$2(12x - 9)$", "$12(2x - 1.5)$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "Find the Highest Common Factor (HCF) of 24 and 18.",
                 explanation: "The HCF of 24 and 18 is 6. Factoring gives $6(4x - 3)$."
             },
@@ -404,8 +426,8 @@
                 id: 25,
                 category: "Bracket Expansion",
                 question: "Expand: $x^2(3x - 5) + 2x(x^2 - 4x)$.",
-                options: ["$5x^3 - 13x^2$", "$3x^3 - 5x^2 + 2x^3 - 8x^2$", "$5x^3 - 5x^2$", "$3x^3 - 13x^2$"],
-                correct: 0,
+                options: ["$3x^3 - 5x^2 + 2x^3 - 8x^2$", "$5x^3 - 5x^2$", "$3x^3 - 13x^2$", "$5x^3 - 13x^2$"],
+                correct: 3, // D
                 hint: "Expand $x^2(3x - 5)$ and $2x(x^2 - 4x)$ separately.",
                 explanation: "$3x^3 - 5x^2 + 2x^3 - 8x^2 = (3 + 2)x^3 + (-5 - 8)x^2 = 5x^3 - 13x^2$."
             },
@@ -414,7 +436,7 @@
                 category: "Bracket Expansion",
                 question: "Factorize completely: $15a^2b - 10ab^2$.",
                 options: ["$5ab(3a - 2b)$", "$5a(3ab - 2b^2)$", "$5b(3a^2 - 2ab)$", "$ab(15a - 10b)$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "The HCF of 15 and 10 is 5, and both terms share $ab$.",
                 explanation: "$5ab$ is common to both terms: $15a^2b - 10ab^2 = 5ab(3a - 2b)$."
             },
@@ -422,8 +444,8 @@
                 id: 27,
                 category: "Bracket Expansion",
                 question: "Expand and simplify: $3x(x - 2) - 2x(x + 4)$.",
-                options: ["$x^2 - 14x$", "$x^2 + 2x$", "$5x^2 - 14x$", "$x^2 - 2x$"],
-                correct: 0,
+                options: ["$x^2 + 2x$", "$5x^2 - 14x$", "$x^2 - 14x$", "$x^2 - 2x$"],
+                correct: 2, // C
                 hint: "Distribute $3x$ and $-2x$, then combine $x^2$ and $x$ terms.",
                 explanation: "$3x^2 - 6x - 2x^2 - 8x = (3 - 2)x^2 + (-6 - 8)x = x^2 - 14x$."
             },
@@ -431,8 +453,8 @@
                 id: 28,
                 category: "Bracket Expansion",
                 question: "Factorize completely: $4x^2y + 8xy^2 - 12xy$.",
-                options: ["$4xy(x + 2y - 3)$", "$4x(xy + 2y^2 - 3y)$", "$2xy(2x + 4y - 6)$", "$4xy(x + 2y)$"],
-                correct: 0,
+                options: ["$4x(xy + 2y^2 - 3y)$", "$4xy(x + 2y - 3)$", "$2xy(2x + 4y - 6)$", "$4xy(x + 2y)$"],
+                correct: 1, // B
                 hint: "Find the HCF of coefficients ($4, 8, 12$) and variables ($xy$).",
                 explanation: "HCF is $4xy$. Factoring out gives $4xy(x + 2y - 3)$."
             },
@@ -440,8 +462,8 @@
                 id: 29,
                 category: "Bracket Expansion",
                 question: "Expand: $-3(4 - 5x) + 2(2x - 7)$.",
-                options: ["$19x - 26$", "$11x - 26$", "$19x + 2$", "$-11x - 26$"],
-                correct: 0,
+                options: ["$11x - 26$", "$19x + 2$", "$-11x - 26$", "$19x - 26$"],
+                correct: 3, // D
                 hint: "Distribute $-3$ into $(4 - 5x)$ and $2$ into $(2x - 7)$.",
                 explanation: "$-12 + 15x + 4x - 14 = (15 + 4)x + (-12 - 14) = 19x - 26$."
             },
@@ -450,7 +472,7 @@
                 category: "Bracket Expansion",
                 question: "What is the result when $7 - 2(3x - 4)$ is fully expanded and simplified?",
                 options: ["$-6x + 15$", "$6x - 1$", "$-6x + 11$", "$15 - 6x$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Be careful: distribute $-2$ into $(3x - 4)$.",
                 explanation: "$7 - 6x + 8 = -6x + 15$."
             },
@@ -460,8 +482,8 @@
                 id: 31,
                 category: "Binomial Expansion",
                 question: "Expand the binomial product: $(2x + 3)(x - 4)$.",
-                options: ["$2x^2 - 11x - 12$", "$2x^2 - 5x - 12$", "$2x^2 + 5x - 12$", "$2x^2 - 8x - 12$"],
-                correct: 1,
+                options: ["$2x^2 - 11x - 12$", "$2x^2 + 5x - 12$", "$2x^2 - 5x - 12$", "$2x^2 - 8x - 12$"],
+                correct: 2, // C
                 hint: "Use FOIL (First, Outer, Inner, Last).",
                 explanation: "First: $2x^2$, Outer: $-8x$, Inner: $3x$, Last: $-12$. Combine: $2x^2 - 8x + 3x - 12 = 2x^2 - 5x - 12$."
             },
@@ -469,8 +491,8 @@
                 id: 32,
                 category: "Difference of Squares",
                 question: "Expand and simplify: $(4x - 5)(4x + 5)$.",
-                options: ["$16x^2 - 40x - 25$", "$16x^2 + 25$", "$16x^2 - 25$", "$8x^2 - 25$"],
-                correct: 2,
+                options: ["$16x^2 - 40x - 25$", "$16x^2 + 25$", "$8x^2 - 25$", "$16x^2 - 25$"],
+                correct: 3, // D
                 hint: "This is a difference of two squares: $(a-b)(a+b) = a^2 - b^2$.",
                 explanation: "$(4x)^2 - (5)^2 = 16x^2 - 25$."
             },
@@ -479,7 +501,7 @@
                 category: "Binomial Expansion",
                 question: "Expand $(x + 6)^2$.",
                 options: ["$x^2 + 36$", "$x^2 + 12x + 36$", "$x^2 + 6x + 36$", "$2x + 12$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "Remember $(a + b)^2 = a^2 + 2ab + b^2$.",
                 explanation: "$x^2 + 2(x)(6) + 6^2 = x^2 + 12x + 36$."
             },
@@ -488,7 +510,7 @@
                 category: "Binomial Expansion",
                 question: "Expand: $(3x - 2)(2x + 5)$.",
                 options: ["$6x^2 + 11x - 10$", "$6x^2 + 19x - 10$", "$6x^2 - 11x - 10$", "$5x^2 + 3x - 10$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Apply FOIL: First ($6x^2$), Outer ($15x$), Inner ($-4x$), Last ($-10$).",
                 explanation: "$6x^2 + 15x - 4x - 10 = 6x^2 + 11x - 10$."
             },
@@ -497,7 +519,7 @@
                 category: "Binomial Expansion",
                 question: "Expand $(3x - 4)^2$.",
                 options: ["$9x^2 + 16$", "$9x^2 - 12x + 16$", "$9x^2 - 24x + 16$", "$9x^2 - 24x - 16$"],
-                correct: 2,
+                correct: 2, // C
                 hint: "Use $(a - b)^2 = a^2 - 2ab + b^2$.",
                 explanation: "$(3x)^2 - 2(3x)(4) + (-4)^2 = 9x^2 - 24x + 16$."
             },
@@ -505,8 +527,8 @@
                 id: 36,
                 category: "Difference of Squares",
                 question: "Expand: $(3a - 2b)(3a + 2b)$.",
-                options: ["$9a^2 - 4b^2$", "$9a^2 - 12ab - 4b^2$", "$9a^2 + 4b^2$", "$6a^2 - 4b^2$"],
-                correct: 0,
+                options: ["$9a^2 - 12ab - 4b^2$", "$9a^2 + 4b^2$", "$6a^2 - 4b^2$", "$9a^2 - 4b^2$"],
+                correct: 3, // D
                 hint: "Difference of squares formula: $(3a)^2 - (2b)^2$.",
                 explanation: "$9a^2 - 4b^2$."
             },
@@ -514,8 +536,8 @@
                 id: 37,
                 category: "Binomial Expansion",
                 question: "Expand: $(x - 5)(x - 7)$.",
-                options: ["$x^2 - 12x - 35$", "$x^2 + 12x + 35$", "$x^2 - 12x + 35$", "$x^2 - 35$"],
-                correct: 2,
+                options: ["$x^2 - 12x - 35$", "$x^2 - 12x + 35$", "$x^2 + 12x + 35$", "$x^2 - 35$"],
+                correct: 1, // B
                 hint: "Product of two negatives is positive for the constant term.",
                 explanation: "$x^2 - 7x - 5x + 35 = x^2 - 12x + 35$."
             },
@@ -524,7 +546,7 @@
                 category: "Binomial Expansion",
                 question: "Find the coefficient of $x$ when $(2x + 5)(x - 3)$ is expanded.",
                 options: ["$-11$", "$1$", "$-1$", "$11$"],
-                correct: 2,
+                correct: 2, // C
                 hint: "Sum the Outer product and Inner product.",
                 explanation: "Outer: $2x(-3) = -6x$. Inner: $5(x) = 5x$. Sum: $-6x + 5x = -x$, so the coefficient is $-1$."
             },
@@ -533,7 +555,7 @@
                 category: "Binomial Expansion",
                 question: "Expand and simplify: $(x + 4)(x - 4) + 16$.",
                 options: ["$x^2 + 32$", "$x^2$", "$x^2 - 32$", "$x^2 + 8x$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "Notice $(x+4)(x-4) = x^2 - 16$.",
                 explanation: "$x^2 - 16 + 16 = x^2$."
             },
@@ -542,7 +564,7 @@
                 category: "Binomial Expansion",
                 question: "Expand: $(5x + 2)(3x - 1)$.",
                 options: ["$15x^2 + x - 2$", "$15x^2 + 11x - 2$", "$15x^2 - x - 2$", "$8x^2 + x - 2$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "FOIL method: $15x^2 - 5x + 6x - 2$.",
                 explanation: "$15x^2 + x - 2$."
             },
@@ -553,7 +575,7 @@
                 category: "Algebraic Division",
                 question: "Simplify the algebraic fraction: $\\frac{24x^4 - 16x^3 + 8x^2}{4x^2}$.",
                 options: ["$6x^2 - 4x$", "$6x^2 - 4x + 1$", "$20x^2 - 12x + 4$", "$6x^2 - 4x + 2$"],
-                correct: 3,
+                correct: 3, // D
                 hint: "Divide each term in the numerator by $4x^2$ separately.",
                 explanation: "$\\frac{24x^4}{4x^2} - \\frac{16x^3}{4x^2} + \\frac{8x^2}{4x^2} = 6x^2 - 4x + 2$."
             },
@@ -562,7 +584,7 @@
                 category: "Algebraic Division",
                 question: "Simplify: $\\frac{18a^3b^2 - 12a^2b^4}{6ab^2}$.",
                 options: ["$3a^2 - 2ab^2$", "$3a^2 - 2b^2$", "$3a^2b - 2ab^2$", "$3a^3 - 2b^4$"],
-                correct: 1,
+                correct: 1, // B
                 hint: "Divide coefficients and subtract exponents for both $a$ and $b$. Note $b^2 / b^2 = 1$.",
                 explanation: "$\\frac{18a^3b^2}{6ab^2} - \\frac{12a^2b^4}{6ab^2} = 3a^{3-1}b^{2-2} - 2a^{2-1}b^{4-2} = 3a^2 - 2b^2$."
             },
@@ -571,7 +593,7 @@
                 category: "Algebraic Division",
                 question: "Simplify: $\\frac{-15x^5 + 25x^3 - 10x^2}{-5x^2}$.",
                 options: ["$3x^3 - 5x + 2$", "$-3x^3 + 5x - 2$", "$3x^3 + 5x - 2$", "$3x^3 - 5x - 2$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Dividing by a negative flips all signs.",
                 explanation: "$\\frac{-15x^5}{-5x^2} + \\frac{25x^3}{-5x^2} + \\frac{-10x^2}{-5x^2} = 3x^3 - 5x + 2$."
             },
@@ -579,8 +601,8 @@
                 id: 44,
                 category: "Algebraic Division",
                 question: "Simplify: $\\frac{42p^4q^3 - 28p^2q^4}{7p^2q^2}$.",
-                options: ["$6p^2q - 4q^2$", "$6p^2q - 4pq^2$", "$6p^2 - 4q^2$", "$6p^2q - 4q$"],
-                correct: 0,
+                options: ["$6p^2q - 4pq^2$", "$6p^2 - 4q^2$", "$6p^2q - 4q^2$", "$6p^2q - 4q$"],
+                correct: 2, // C
                 hint: "Divide $42$ by $7$, subtract powers of $p$ ($4-2$) and $q$ ($3-2$).",
                 explanation: "$6p^2q - 4q^2$."
             },
@@ -588,8 +610,8 @@
                 id: 45,
                 category: "Algebraic Division",
                 question: "Find the quotient when $12x^3 - 18x^2$ is divided by $6x^2$.",
-                options: ["$2x - 3$", "$2x^2 - 3x$", "$2x - 3x$", "$2x + 3$"],
-                correct: 0,
+                options: ["$2x^2 - 3x$", "$2x - 3x$", "$2x + 3$", "$2x - 3$"],
+                correct: 3, // D
                 hint: "Split terms: $\\frac{12x^3}{6x^2} - \\frac{18x^2}{6x^2}$.",
                 explanation: "$2x - 3$."
             },
@@ -598,7 +620,7 @@
                 category: "Algebraic Division",
                 question: "Simplify: $\\frac{8x^3y^2 + 12x^2y^3}{4xy}$.",
                 options: ["$2x^2y + 3xy^2$", "$2x^2y^2 + 3xy^2$", "$2x^3y + 3x^2y^2$", "$2x^2y + 3xy$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Divide each term by $4xy$.",
                 explanation: "$\\frac{8x^3y^2}{4xy} + \\frac{12x^2y^3}{4xy} = 2x^2y + 3xy^2$."
             },
@@ -606,8 +628,8 @@
                 id: 47,
                 category: "Algebraic Division",
                 question: "Simplify: $\\frac{32m^5 - 24m^3 + 16m^2}{-8m^2}$.",
-                options: ["$-4m^3 + 3m - 2$", "$-4m^3 - 3m + 2$", "$4m^3 - 3m + 2$", "$-4m^3 + 3m + 2$"],
-                correct: 0,
+                options: ["$-4m^3 - 3m + 2$", "$-4m^3 + 3m - 2$", "$4m^3 - 3m + 2$", "$-4m^3 + 3m + 2$"],
+                correct: 1, // B
                 hint: "Divide each term by $-8m^2$.",
                 explanation: "$-4m^3 + 3m - 2$."
             },
@@ -615,8 +637,8 @@
                 id: 48,
                 category: "Algebraic Division",
                 question: "What is $\\frac{50a^4b^3 - 30a^3b^4}{10a^3b^3}$?",
-                options: ["$5a - 3b$", "$5ab - 3b$", "$5a - 3ab$", "$5a^2 - 3b^2$"],
-                correct: 0,
+                options: ["$5ab - 3b$", "$5a - 3ab$", "$5a - 3b$", "$5a^2 - 3b^2$"],
+                correct: 2, // C
                 hint: "$a^3/a^3 = 1$ and $b^3/b^3 = 1$.",
                 explanation: "$5a^{4-3}b^{3-3} - 3a^{3-3}b^{4-3} = 5a - 3b$."
             },
@@ -624,8 +646,8 @@
                 id: 49,
                 category: "Algebraic Division",
                 question: "Simplify: $\\frac{9x^2y - 15xy^2}{3xy}$.",
-                options: ["$3x - 5y$", "$3x^2 - 5y^2$", "$3x - 5xy$", "$3y - 5x$"],
-                correct: 0,
+                options: ["$3x^2 - 5y^2$", "$3x - 5xy$", "$3y - 5x$", "$3x - 5y$"],
+                correct: 3, // D
                 hint: "Divide coefficients by 3 and subtract 1 from each variable's power.",
                 explanation: "$3x - 5y$."
             },
@@ -634,7 +656,7 @@
                 category: "Algebraic Division",
                 question: "Simplify: $\\frac{-20x^6 + 16x^4 - 8x^2}{-4x^2}$.",
                 options: ["$5x^4 - 4x^2 + 2$", "$-5x^4 + 4x^2 - 2$", "$5x^4 - 4x^2 - 2$", "$5x^3 - 4x^2 + 2$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Dividing negative by negative yields positive.",
                 explanation: "$5x^4 - 4x^2 + 2$."
             },
@@ -644,8 +666,8 @@
                 id: 51,
                 category: "Linear Equations",
                 question: "Solve the linear equation for $x$: $5x - 9 = 26$.",
-                options: ["$x = 7$", "$x = 5$", "$x = 9$", "$x = 3.4$"],
-                correct: 0,
+                options: ["$x = 5$", "$x = 7$", "$x = 9$", "$x = 3.4$"],
+                correct: 1, // B
                 hint: "Add 9 to both sides first, then divide by 5.",
                 explanation: "Add 9: $5x = 35$. Divide by 5: $x = 7$."
             },
@@ -653,8 +675,8 @@
                 id: 52,
                 category: "Equations with Brackets",
                 question: "Solve the equation: $3(2x - 4) = 2(3x + 1) - 14$.",
-                options: ["Infinitely many solutions (Identity)", "$x = 2$", "No solution", "$x = 0$"],
-                correct: 0,
+                options: ["$x = 2$", "No solution", "$x = 0$", "Infinitely many solutions (Identity)"],
+                correct: 3, // D
                 hint: "Expand both sides and simplify.",
                 explanation: "$6x - 12 = 6x + 2 - 14 \\implies 6x - 12 = 6x - 12$. Since both sides are identical, it is an identity with infinitely many solutions."
             },
@@ -662,8 +684,8 @@
                 id: 53,
                 category: "Unknowns on Both Sides",
                 question: "Solve for $x$: $7x - 5 = 3x + 15$.",
-                options: ["$x = 5$", "$x = 2.5$", "$x = 4$", "$x = 10$"],
-                correct: 0,
+                options: ["$x = 2.5$", "$x = 5$", "$x = 4$", "$x = 10$"],
+                correct: 1, // B
                 hint: "Subtract $3x$ from both sides, then isolate $x$.",
                 explanation: "Subtract $3x$: $4x - 5 = 15$. Add 5: $4x = 20$. Divide by 4: $x = 5$."
             },
@@ -671,8 +693,8 @@
                 id: 54,
                 category: "Equation Word Problem",
                 question: "Consecutive integers sum to $63$. If the smaller integer is $x$, what equation represents this and what is $x$?",
-                options: ["$x + (x+1) = 63 \\implies x = 31$", "$x + (x+2) = 63 \\implies x = 30.5$", "$2x = 63 \\implies x = 31.5$", "$x + x = 63 \\implies x = 31.5$"],
-                correct: 0,
+                options: ["$x + (x+2) = 63 \\implies x = 30.5$", "$2x = 63 \\implies x = 31.5$", "$x + (x+1) = 63 \\implies x = 31$", "$x + x = 63 \\implies x = 31.5$"],
+                correct: 2, // C
                 hint: "Consecutive integers differ by 1, so the next integer is $x + 1$.",
                 explanation: "Equation: $x + (x + 1) = 63 \\implies 2x + 1 = 63 \\implies 2x = 62 \\implies x = 31$."
             },
@@ -681,7 +703,7 @@
                 category: "Geometry Equation",
                 question: "A rectangle has length $(3x + 4)$ cm and width $(x + 2)$ cm. If the perimeter is $52$ cm, find the value of $x$.",
                 options: ["$x = 5$", "$x = 4$", "$x = 6$", "$x = 7$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Perimeter formula: $P = 2(\\text{Length} + \\text{Width})$. Set equal to 52.",
                 explanation: "$2((3x + 4) + (x + 2)) = 52 \\implies 2(4x + 6) = 52 \\implies 4x + 6 = 26 \\implies 4x = 20 \\implies x = 5$."
             },
@@ -689,8 +711,8 @@
                 id: 56,
                 category: "Linear Equations",
                 question: "Solve for $x$: $\\frac{x}{3} + 5 = 12$.",
-                options: ["$x = 21$", "$x = 17$", "$x = 51$", "$x = 7$"],
-                correct: 0,
+                options: ["$x = 17$", "$x = 21$", "$x = 51$", "$x = 7$"],
+                correct: 1, // B
                 hint: "Subtract 5 from both sides, then multiply by 3.",
                 explanation: "$\\frac{x}{3} = 7 \\implies x = 7 \\times 3 = 21$."
             },
@@ -698,8 +720,8 @@
                 id: 57,
                 category: "Equations with Fractions",
                 question: "Solve the equation: $\\frac{2x - 3}{4} = 3$.",
-                options: ["$x = 7.5$", "$x = 6$", "$x = 9$", "$x = 4.5$"],
-                correct: 0,
+                options: ["$x = 6$", "$x = 9$", "$x = 7.5$", "$x = 4.5$"],
+                correct: 2, // C
                 hint: "Multiply both sides by 4 first.",
                 explanation: "$2x - 3 = 12 \\implies 2x = 15 \\implies x = 7.5$."
             },
@@ -707,8 +729,8 @@
                 id: 58,
                 category: "Unknowns on Both Sides",
                 question: "Solve for $x$: $4(x - 2) = 2(x + 3)$.",
-                options: ["$x = 7$", "$x = 5$", "$x = 1$", "$x = 3$"],
-                correct: 0,
+                options: ["$x = 5$", "$x = 1$", "$x = 3$", "$x = 7$"],
+                correct: 3, // D
                 hint: "Expand both sides: $4x - 8 = 2x + 6$.",
                 explanation: "$4x - 2x = 6 + 8 \\implies 2x = 14 \\implies x = 7$."
             },
@@ -716,8 +738,8 @@
                 id: 59,
                 category: "Equation Word Problem",
                 question: "Sarah thinks of a number, multiplies it by 4, subtracts 7, and gets 25. What is the number?",
-                options: ["$x = 8$", "$x = 4.5$", "$x = 6$", "$x = 7.5$"],
-                correct: 0,
+                options: ["$x = 4.5$", "$x = 8$", "$x = 6$", "$x = 7.5$"],
+                correct: 1, // B
                 hint: "Set up equation $4x - 7 = 25$.",
                 explanation: "$4x = 32 \\implies x = 8$."
             },
@@ -726,7 +748,7 @@
                 category: "Advanced Linear Equations",
                 question: "Solve for $x$: $5(x - 2) - 2(3x - 4) = 3$.",
                 options: ["$x = -2$", "$x = 2$", "$x = 5$", "$x = -5$"],
-                correct: 0,
+                correct: 0, // A
                 hint: "Expand carefully and collect like terms.",
                 explanation: "$5x - 10 - 6x + 8 = 3 \\implies -x - 2 = 3 \\implies -x = 5 \\implies x = -2$."
             }
@@ -833,6 +855,8 @@
             document.getElementById('progressPercent').innerText = `${Math.round(progressPercent)}% Completed`;
             document.getElementById('progressBar').style.width = `${progressPercent}%`;
 
+            const optionLabels = ["A", "B", "C", "D"];
+
             container.innerHTML = `
                 <div class="space-y-5">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -875,7 +899,10 @@
 
                             return `
                                 <button onclick="selectOption(${oIdx})" ${isAnswered ? 'disabled' : ''} class="${btnClass}">
-                                    <span>${opt}</span>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center shrink-0">${optionLabels[oIdx]}</span>
+                                        <span>${opt}</span>
+                                    </div>
                                     <i class="${iconClass}"></i>
                                 </button>
                             `;
@@ -987,14 +1014,22 @@
             renderQuiz();
         }
 
-        function resetQuizData() {
-            if (confirm("Are you sure you want to reset all your progress?")) {
-                localStorage.removeItem('cambridge_alg_60_answers');
-                localStorage.removeItem('cambridge_alg_60_idx');
-                restartQuiz();
-                if (!document.getElementById('navDrawer').classList.contains('translate-x-full')) {
-                    toggleNavDrawer();
-                }
+        // Custom Modal handlers replacing window.confirm
+        function showResetModal() {
+            document.getElementById('resetModal').classList.remove('hidden');
+        }
+
+        function closeResetModal() {
+            document.getElementById('resetModal').classList.add('hidden');
+        }
+
+        function confirmResetQuizData() {
+            closeResetModal();
+            localStorage.removeItem('cambridge_alg_60_answers');
+            localStorage.removeItem('cambridge_alg_60_idx');
+            restartQuiz();
+            if (!document.getElementById('navDrawer').classList.contains('translate-x-full')) {
+                toggleNavDrawer();
             }
         }
 
